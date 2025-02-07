@@ -4,6 +4,7 @@ import HeaderOpeningHours from "./components/headerOpenHours";
 import HeaderPhoneNumber from "./components/hederPhoneNumber";
 import HeaderAllergensBtn from "./components/headerAllergensBtn";
 import HeaderMyOrderBtn from "./components/headerMyOrderBtn";
+import LanguageSelection from "./components/languageSelection";
 
 const Header = () => {
   return (
@@ -29,6 +30,7 @@ const Header = () => {
           <Box sx={{ flexGrow: 1 }} />
           <HeaderAllergensBtn />
           <HeaderMyOrderBtn />
+          <LanguageSelection />
         </Box>
       </AppBar>
     </>

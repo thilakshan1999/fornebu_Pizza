@@ -1,9 +1,11 @@
 import React from "react";
 import { Box, styled, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { Switch } from "@mui/material";
 import CustomTypography from "../../../components/typography/customTypography";
 
 const HeaderAllergensBtn = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
 
   const IOSSwitch = styled((props) => (
@@ -75,7 +77,7 @@ const HeaderAllergensBtn = () => {
       <IOSSwitch sx={{ m: 1 }} defaultChecked />
       <CustomTypography
         color={theme.palette.text.white}
-        text="Allergens"
+        text={t("My_order")}
         sx={{
           fontSize: "15px",
           marginRight: "10px",

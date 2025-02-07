@@ -1,9 +1,11 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import CustomTypography from "../../../components/typography/customTypography";
 import AssignmentOutlinedIcon from "@mui/icons-material/AssignmentOutlined";
 
 const HeaderMyOrderBtn = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
 
   return (
@@ -13,10 +15,10 @@ const HeaderMyOrderBtn = () => {
       />
       <CustomTypography
         color={theme.palette.text.white}
-        text="My order"
+        text={t("Allergens")}
         sx={{
           fontSize: "15px",
-          marginRight: "20px",
+          marginRight: "10px",
           marginLeft: "5px",
         }}
       />

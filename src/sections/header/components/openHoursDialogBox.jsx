@@ -47,7 +47,7 @@ const OpeningHoursDialogBox = ({ openDialog, handleDialogClose }) => {
         <Divider
           sx={{
             width: "100%",
-            color: "#7f7f7f",
+            color: theme.palette.button.grey,
             margin: "8px 0",
           }}
         />
@@ -95,7 +95,7 @@ const OpeningHoursDialogBox = ({ openDialog, handleDialogClose }) => {
                 <Divider
                   sx={{
                     width: "100%",
-                    color: "#7f7f7f",
+                    color: theme.palette.border.main,
                     margin: "8px 0",
                   }}
                 />

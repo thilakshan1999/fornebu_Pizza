@@ -13,7 +13,15 @@ const theme = createTheme({
       red: "red",
       darkGreen: "#00ae60",
     },
-    button: {},
+    button: {
+      grey: "#7f7f7f",
+      white: "#ffffff",
+    },
+    border: {
+      main: "#7f7f7f",
+      white: "#ffffff",
+      green: "#a4d194",
+    },
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',

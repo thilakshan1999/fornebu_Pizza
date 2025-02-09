@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import HomeSection from "../sections/main/home/homeSection";
 
 const HomePage = () => {
   return (
@@ -7,7 +8,7 @@ const HomePage = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <h1> ffff </h1>
+      <HomeSection />
     </>
   );
 };

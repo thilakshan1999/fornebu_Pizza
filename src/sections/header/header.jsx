@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { AppBar, Box } from "@mui/material";
 import HeaderOpeningHours from "./components/headerOpenHours";
 import HeaderPhoneNumber from "./components/hederPhoneNumber";
 import HeaderAllergensBtn from "./components/headerAllergensBtn";
@@ -13,6 +13,10 @@ const Header = () => {
         position="static"
         sx={{
           background: "#000000",
+          display: {
+            xs: "none",
+            md: "flex",
+          },
         }}
       >
         <Box

@@ -1,0 +1,16 @@
+export const DummyCategories = [
+  "Internett deal",
+  "Amerikansk Pizza",
+  "Italiensk Pizza",
+  "Kebab / Grill",
+  "Middagsretter",
+  "Crispy Fried Chicken",
+  "Burger Retter",
+  "Calzone",
+  "Småretter",
+  "Snacks",
+  "Salat",
+  "Barne Meny",
+  "Ekstra Tilbehør",
+  "Drikke",
+];

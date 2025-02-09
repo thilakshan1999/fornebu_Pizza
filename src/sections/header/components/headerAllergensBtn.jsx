@@ -77,7 +77,7 @@ const HeaderAllergensBtn = () => {
       <IOSSwitch sx={{ m: 1 }} defaultChecked />
       <CustomTypography
         color={theme.palette.text.white}
-        text={t("My_order")}
+        text={t("Allergens")}
         sx={{
           fontSize: "15px",
           marginRight: "10px",

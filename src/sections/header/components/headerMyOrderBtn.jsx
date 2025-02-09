@@ -15,7 +15,7 @@ const HeaderMyOrderBtn = () => {
       />
       <CustomTypography
         color={theme.palette.text.white}
-        text={t("Allergens")}
+        text={t("My_order")}
         sx={{
           fontSize: "15px",
           marginRight: "10px",

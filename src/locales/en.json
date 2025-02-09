@@ -17,5 +17,10 @@
     "About_us":"About us",
     "Privacy_policy":"Privacy policy",
     "Term_and_conditions":"Term and conditions",
-    "FAQs":"FAQs"
+    "FAQs":"FAQs",
+
+    "Home":"HOME",
+    "Menu":"MENU",
+    "Cart":"CART",
+    "Orders":"ORDERS"
 }

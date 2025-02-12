@@ -18,7 +18,7 @@ const SearchBar = () => {
       onChange={handleSearchChange}
       size="small"
       sx={{
-        width: "250px",
+        flexGrow: 1,
         marginBlock: "auto",
         "& .MuiOutlinedInput-root": {
           borderRadius: "10px",

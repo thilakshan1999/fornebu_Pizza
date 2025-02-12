@@ -17,6 +17,7 @@ const Header = () => {
             xs: "none",
             md: "flex",
           },
+          padding: "0 10px",
         }}
       >
         <Box
@@ -24,7 +25,6 @@ const Header = () => {
             maxWidth: "1200px",
             margin: "auto",
             width: "100%",
-            padding: "0px 10px",
             display: "flex",
             minHeight: "45px",
           }}

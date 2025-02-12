@@ -2,12 +2,13 @@ import { Box } from "@mui/material";
 import tittleBackground from "../../../../../assets/images/home/tittleBackground.png";
 import TittleInfo from "./tittleInfo";
 
-const TittleCard = () => {
+const TittleCard = ({ isFixed }) => {
   return (
     <Box
       sx={{
         width: "100%",
         height: "250px",
+        marginTop: isFixed ? "50px" : "0px",
         position: "relative", // ✅ Ensures child elements position correctly
         display: {
           xs: "none",

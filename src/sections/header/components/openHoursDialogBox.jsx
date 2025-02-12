@@ -58,7 +58,10 @@ const OpeningHoursDialogBox = ({ openDialog, handleDialogClose }) => {
             <Box key={day}>
               <Box
                 sx={{
-                  width: "400px",
+                  width: {
+                    xs: "100%",
+                    md: "400px",
+                  },
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "8px",

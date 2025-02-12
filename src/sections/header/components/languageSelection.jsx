@@ -45,7 +45,7 @@ const LanguageSelection = () => {
           borderRadius: "50%",
           backgroundColor: theme.palette.background.paper,
           margin: "auto",
-          marginRight: "20px",
+          marginRight: "10px",
           padding: 0,
         }}
       >

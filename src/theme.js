@@ -18,7 +18,7 @@ const theme = createTheme({
       white: "#ffffff",
     },
     border: {
-      main: "#7f7f7f",
+      main: "#e9e9ec",
       white: "#ffffff",
       green: "#a4d194",
     },

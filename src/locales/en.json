@@ -31,6 +31,10 @@
     "Show Less":"Show less",
     "Add To Cart":"Add To Cart",
     "Select":"Select",
-      "Deselect Ingredients":"Deselect Ingredients"
+    "Deselect Ingredients":"Deselect Ingredients",
+    "Extra":"Extra",
+    "Extra Dressing":"Extra dressing",
+    "Add Drink":"Add drink",
+    "Order Note":"Order note"
 
 }

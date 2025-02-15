@@ -49,18 +49,23 @@ const generateDummyProduct = (id) => {
       {
         id: id + 100,
         name: `Extra ${id + 100}`,
-        amount: (Math.random() * 10).toFixed(2),
+        amount: Math.random() * 10,
+      },
+      {
+        id: id + 102,
+        name: `Extra ${id + 102}`,
+        amount: Math.random() * 10,
       },
     ],
     [
-      { name: "Dressing 1", price: (Math.random() * 3).toFixed(2) },
-      { name: "Dressing 2", price: (Math.random() * 3).toFixed(2) },
+      { name: "Dressing 1", amount: Math.random() * 3 },
+      { name: "Dressing 2", amount: Math.random() * 3 },
     ],
     [
       {
         id: id + 200,
         name: `Drink ${id + 200}`,
-        amount: (Math.random() * 5).toFixed(2),
+        amount: Math.random() * 5,
       },
     ]
   );

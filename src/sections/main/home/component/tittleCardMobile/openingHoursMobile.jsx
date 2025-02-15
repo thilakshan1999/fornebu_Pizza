@@ -28,12 +28,15 @@ const OpeningHoursMobile = () => {
         display: "flex",
         alignItems: "center",
         marginTop: "8px",
-        marginLeft: "10px",
-        marginRight: "10px",
       }}
     >
       {/* Clock Icon */}
-      <WatchLaterIcon sx={{ color: theme.palette.text.grey, marginRight: 1 }} />
+      <WatchLaterIcon
+        sx={{
+          color: theme.palette.text.grey,
+          marginRight: 1,
+        }}
+      />
 
       <CustomTypography
         color={theme.palette.text.grey}

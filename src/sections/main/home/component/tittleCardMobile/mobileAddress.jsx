@@ -11,8 +11,6 @@ const MobileAddress = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        marginLeft: "13px",
-        marginRight: "10px",
         marginTop: "8px",
         marginBottom: "8px",
       }}

@@ -22,9 +22,7 @@ const TittleMobileInfo = () => {
           height: "80px",
           objectFit: "contain",
           borderRadius: "50%",
-          marginRight: "10px",
           border: "1px solid",
-          marginLeft: "10px",
           borderColor: theme.palette.border.main,
         }}
       />

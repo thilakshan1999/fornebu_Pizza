@@ -44,6 +44,7 @@ const TittleCardMobile = () => {
           position: "relative",
           top: "-40px",
           zIndex: 1,
+          paddingInline: "15px",
         }}
       >
         <TittleMobileInfo />

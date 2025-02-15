@@ -1,6 +1,6 @@
 import { Product } from "../model/product";
 
-export const DummyCategories = [
+const DummyCategories = [
   "Internett deal",
   "Amerikansk Pizza",
   "Italiensk Pizza",
@@ -69,5 +69,6 @@ const generateDummyData = () => {
   }));
 };
 
-export const dummyData = generateDummyData();
-console.log(dummyData);
+const dummyData = generateDummyData();
+
+export { dummyData, DummyCategories };

@@ -4,7 +4,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { DummyCategories } from "../../../../../utils/dummyCateories";
 
-const CategoryScroll = () => {
+const CategoryScroll = ({ handleCategoryClick }) => {
   const scrollContainerRef = useRef(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
@@ -80,6 +80,7 @@ const CategoryScroll = () => {
         {DummyCategories.map((category, index) => (
           <Button
             key={index}
+            onClick={() => handleCategoryClick(index)}
             variant="contained"
             sx={{
               backgroundColor: "transparent",

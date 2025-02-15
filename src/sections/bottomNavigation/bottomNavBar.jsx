@@ -10,13 +10,21 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const BottomNavBar = () => {
+const BottomNavBar = ({ setOpen }) => {
   const { t } = useTranslation();
-  const [value, setValue] = useState(0);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomeSelected = location.pathname === "/";
+  const value = isHomeSelected ? 0 : -1;
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue === 0) {
+      navigate("/"); // Navigate to Home when 0 is selected
+    } else if (newValue === 1) {
+      setOpen(true);
+    }
   };
 
   return (

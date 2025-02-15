@@ -4,10 +4,16 @@ import React from "react";
 import MenuHomeBtn from "./menuHomeBtn";
 import SearchBar from "./searchBar";
 import CategoryScroll from "./menuCategories";
+import { useLocation, useParams } from "react-router-dom";
+import CustomTypography from "../../../../../components/typography/customTypography";
+import { useTranslation } from "react-i18next";
 
-const MenuBar = ({ isFixed }) => {
+const MenuBar = ({ isFixed, handleCategoryClick }) => {
   const theme = useTheme();
-
+  const { t } = useTranslation();
+  const location = useLocation();
+  const isHomeSelected = location.pathname === "/";
+  const { categoryName } = useParams();
   return (
     <Box
       sx={{
@@ -34,10 +40,26 @@ const MenuBar = ({ isFixed }) => {
           maxWidth: "1200px",
           margin: "auto",
           display: "flex",
+          alignItems: "center",
         }}
       >
         <MenuHomeBtn />
-        <CategoryScroll />
+        {isHomeSelected ? (
+          <CategoryScroll handleCategoryClick={handleCategoryClick} />
+        ) : (
+          <CustomTypography
+            color={theme.palette.text.white}
+            text={categoryName ? categoryName : t("Search")}
+            sx={{
+              fontSize: "16px",
+              fontWeight: "bold",
+              textTransform: "uppercase",
+              marginInline: "10px",
+              flexGrow: 1,
+            }}
+          />
+        )}
+
         <SearchBar />
       </Box>
     </Box>

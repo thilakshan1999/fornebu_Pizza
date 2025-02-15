@@ -42,6 +42,9 @@ const ProductCard = ({ product, id }) => {
               fontSize: "16px",
               fontWeight: "bold",
               marginBottom: "10px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           />
           <CustomTypography

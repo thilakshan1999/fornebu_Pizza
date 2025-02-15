@@ -1,13 +1,31 @@
 import React, { useState } from "react";
-import { TextField, InputAdornment, IconButton, useTheme } from "@mui/material";
+import { TextField, InputAdornment, useTheme } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [debounceTimeout, setDebounceTimeout] = useState(null);
 
   const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    // Clear the previous timeout if user is typing
+    if (debounceTimeout) {
+      clearTimeout(debounceTimeout);
+    }
+
+    // Set a new timeout to wait for 500ms after user stops typing
+    const newTimeout = setTimeout(() => {
+      if (query) {
+        navigate(`/search/${encodeURIComponent(query)}`);
+      }
+    }, 500); // You can adjust the delay (500ms) as needed
+
+    setDebounceTimeout(newTimeout);
   };
 
   return (
@@ -19,10 +37,13 @@ const SearchBar = () => {
       size="small"
       sx={{
         flexGrow: 1,
+        maxWidth: { xs: "100%", md: "250px" },
+        width: "100%",
         marginBlock: "auto",
+        backgroundColor: { xs: "white", md: "transparent" },
         "& .MuiOutlinedInput-root": {
           borderRadius: "10px",
-          color: theme.palette.text.white,
+          color: { xs: theme.palette.text.black, md: theme.palette.text.white },
           "& fieldset": {
             borderColor: theme.palette.border.green,
           },
@@ -37,7 +58,14 @@ const SearchBar = () => {
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <SearchIcon sx={{ color: theme.palette.text.white }} />
+            <SearchIcon
+              sx={{
+                color: {
+                  xs: theme.palette.text.grey,
+                  md: theme.palette.text.white,
+                },
+              }}
+            />
           </InputAdornment>
         ),
       }}

@@ -4,9 +4,14 @@ import TittleMobileInfo from "./tittleMobileInfo";
 import OpeningHoursMobile from "./openingHoursMobile";
 import MobilePhoneNumber from "./mobilePhoneNumber";
 import MobileAddress from "./mobileAddress";
+import SearchBar from "../menu/searchBar";
+import CustomTypography from "../../../../../components/typography/customTypography";
+import { useTranslation } from "react-i18next";
+import HeaderAllergensBtn from "../../../../header/components/headerAllergensBtn";
 
 const TittleCardMobile = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -42,16 +47,39 @@ const TittleCardMobile = () => {
       <Box
         sx={{
           position: "relative",
-          top: "-40px",
+          marginTop: "-40px",
           zIndex: 1,
-          paddingInline: "15px",
         }}
       >
-        <TittleMobileInfo />
-        <OpeningHoursMobile />
-        <MobilePhoneNumber />
-        <MobileAddress />
-        <Divider sx={{ borderColor: theme.palette.border.main }} />
+        <Box sx={{ paddingInline: "15px" }}>
+          <TittleMobileInfo />
+          <OpeningHoursMobile />
+          <MobilePhoneNumber />
+          <MobileAddress />
+        </Box>
+        <Divider
+          sx={{ borderColor: theme.palette.border.main, marginBottom: "15px" }}
+        />
+        <Box sx={{ paddingInline: "15px" }}>
+          <SearchBar />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBlock: "5px",
+            }}
+          >
+            <CustomTypography
+              color={theme.palette.text.green}
+              text={t("Preparing Time") + ":~15 " + t("Minutes")}
+              sx={{
+                fontSize: "14px",
+              }}
+            />
+            <HeaderAllergensBtn />
+          </Box>
+        </Box>
       </Box>
     </Box>
   );

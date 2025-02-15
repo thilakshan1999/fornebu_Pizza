@@ -76,7 +76,7 @@ const HeaderAllergensBtn = () => {
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <IOSSwitch sx={{ m: 1 }} defaultChecked />
       <CustomTypography
-        color={theme.palette.text.white}
+        color={{ xs: theme.palette.text.black, md: theme.palette.text.white }}
         text={t("Allergens")}
         sx={{
           fontSize: "15px",

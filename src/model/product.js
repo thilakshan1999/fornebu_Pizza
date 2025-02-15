@@ -34,15 +34,15 @@ const generateDummyProduct = (id) => {
   return new Product(
     id,
     `Product ${id}`,
-    `This is the description for Product ${id} This is the description for Product This is the description for Product This is the description for Product`,
+    `This is the description for Product ${id} This is the description for Product 1 This is the description for This is the description for`,
     `Allergen info for Product ${id}`,
     2,
-    (Math.random() * 50 + 10).toFixed(2), // Random amount between 10 and 60
+    Math.random() * 50 + 10, // Random amount between 10 and 60
     `Category ${Math.floor(Math.random() * 5) + 1}`,
     `https://techserw.s3.us-west-2.amazonaws.com/Flutter/OKD/Apple2.jpg`,
     [
-      { name: "Option 1", price: (Math.random() * 5).toFixed(2) },
-      { name: "Option 2", price: (Math.random() * 5).toFixed(2) },
+      { name: "Option 1", price: 1 },
+      { name: "Option 2", price: 2 },
     ],
     ["No Cheese", "No Sauce"],
     [

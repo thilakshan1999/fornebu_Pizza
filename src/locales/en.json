@@ -22,5 +22,15 @@
     "Home":"HOME",
     "Menu":"MENU",
     "Cart":"CART",
-    "Orders":"ORDERS"
+    "Orders":"ORDERS",
+
+    "Out of Stock":"Out of Stock",
+    "View More":"View more",
+    "View Less":"View less",
+    "Show More":"Show more",
+    "Show Less":"Show less",
+    "Add To Cart":"Add To Cart",
+    "Select":"Select",
+      "Deselect Ingredients":"Deselect Ingredients"
+
 }

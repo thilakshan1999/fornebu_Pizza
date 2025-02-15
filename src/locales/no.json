@@ -22,5 +22,14 @@
     "Home":"HJEM",
     "Menu":"MENY",
     "Cart":"KURV",
-    "Orders":"ORDRE"
+    "Orders":"ORDRE",
+
+    "Out of Stock":"Utsolgt",
+    "View More":"Se mer",
+    "View Less":"Mindre",
+    "Show More":"Vis mer",
+    "Show Less":"Vis mindre",
+    "Add To Cart":"Legg I Handlekurv",
+    "Select":"Velg",
+    "Deselect Ingredients":"Velg bort indigrensene"
 }

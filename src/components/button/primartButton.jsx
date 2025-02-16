@@ -1,6 +1,6 @@
 import { Button, useTheme } from "@mui/material";
 
-const PrimaryBtn = ({ text, onClick }) => {
+const PrimaryBtn = ({ text, onClick, sx }) => {
   const theme = useTheme();
   return (
     <Button
@@ -16,6 +16,7 @@ const PrimaryBtn = ({ text, onClick }) => {
         "&:hover": {
           boxShadow: "none",
         },
+        ...sx,
       }}
     >
       {text}

@@ -24,8 +24,8 @@ const HomeContent = () => {
       sx={{
         padding: { xs: "10px", md: "40px 20px" },
         marginBottom: { xs: "50px", md: "0px" },
-        maxWidth: "1200px",
-        margin: "auto",
+        width: { xs: "100%", md: "calc(100% - 440px)" },
+        boxSizing: "border-box",
       }}
     >
       {dummyData.map((category, index) => (
@@ -66,7 +66,7 @@ const HomeContent = () => {
           </Box>
           <Grid2 container spacing={2}>
             {category.productList.map((product, index) => (
-              <Grid2 size={{ xs: 12, md: 6 }} key={product.id}>
+              <Grid2 size={{ xs: 12, lg: 6 }} key={product.id}>
                 <ProductCard product={product} id={index + 1} />
               </Grid2>
             ))}

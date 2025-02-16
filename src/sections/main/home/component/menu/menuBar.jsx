@@ -8,7 +8,7 @@ import { useLocation, useParams } from "react-router-dom";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { useTranslation } from "react-i18next";
 
-const MenuBar = ({ isFixed, handleCategoryClick }) => {
+const MenuBar = ({ isFixed, handleCategoryClick, ref }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const location = useLocation();
@@ -16,6 +16,7 @@ const MenuBar = ({ isFixed, handleCategoryClick }) => {
   const { categoryName } = useParams();
   return (
     <Box
+      ref={ref}
       sx={{
         position: isFixed ? "fixed" : "relative",
         top: isFixed ? 0 : "auto",

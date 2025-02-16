@@ -2,9 +2,10 @@ import { Box } from "@mui/material";
 import tittleBackground from "../../../../../assets/images/home/tittleBackground.png";
 import TittleInfo from "./tittleInfo";
 
-const TittleCard = ({ isFixed }) => {
+const TittleCard = ({ isFixed, ref }) => {
   return (
     <Box
+      ref={ref}
       sx={{
         width: "100%",
         height: "250px",

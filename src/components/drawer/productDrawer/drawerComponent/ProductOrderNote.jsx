@@ -2,9 +2,17 @@ import { Box, TextField, useTheme } from "@mui/material";
 import CustomTypography from "../../../typography/customTypography";
 import { useTranslation } from "react-i18next";
 
-const ProductOrderNote = () => {
+const ProductOrderNote = ({ setCartItem }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const handleNoteChange = (event) => {
+    const newNote = event.target.value;
+    setCartItem((prev) => ({
+      ...prev,
+      note: newNote,
+    }));
+  };
 
   return (
     <Box
@@ -38,6 +46,7 @@ const ProductOrderNote = () => {
             borderRadius: "8px",
           },
         }}
+        onChange={handleNoteChange}
       />
     </Box>
   );

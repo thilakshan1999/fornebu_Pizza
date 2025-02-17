@@ -5,19 +5,57 @@ import { Box, useTheme } from "@mui/material";
 import CustomTypography from "../../../typography/customTypography";
 import QuantityButton from "../../../button/quantityButton";
 import { useState } from "react";
-const ProductExtraCard = ({ index, option, prize, setPrize }) => {
+const ProductExtraCard = ({ index, option, setPrize, id, setCartItem }) => {
   const theme = useTheme();
   const [quantity, setQuantity] = useState(0);
   const [isSelected, setIsSelected] = useState(false);
+
   const handleQuantityChange = (amount) => {
-    setQuantity((prev) => {
-      const newQuantity = Math.max(0, prev + amount);
+    const newQuantity = Math.max(0, quantity + amount);
+    const priceDifference = (newQuantity - quantity) * option.amount;
 
-      const priceDifference = (newQuantity - prev) * option.amount;
-      setPrize((prevPrize) => prevPrize + priceDifference);
+    setQuantity(newQuantity);
+    setPrize((prevPrize) => prevPrize + priceDifference);
+    setIsSelected(newQuantity > 0);
 
-      setIsSelected(newQuantity > 0); // Update selection state
-      return newQuantity;
+    // Update cartItem based on the new quantity
+    setCartItem((prev) => {
+      let updatedExtras = [...prev.extras];
+      let updatedExtraDressings = [...prev.extraDressings];
+      let updatedAddDrinks = [...prev.addDrinks];
+
+      if (id === "extra") {
+        updatedExtras = updatedExtras.filter(
+          (item) => item.name !== option.name
+        );
+      } else if (id === "dressing") {
+        updatedExtraDressings = updatedExtraDressings.filter(
+          (item) => item.name !== option.name
+        );
+      } else if (id === "drink") {
+        updatedAddDrinks = updatedAddDrinks.filter(
+          (item) => item.name !== option.name
+        );
+      }
+
+      if (newQuantity > 0) {
+        const updatedOption = { ...option, quantity: newQuantity };
+
+        if (id === "extra") {
+          updatedExtras.push(updatedOption);
+        } else if (id === "dressing") {
+          updatedExtraDressings.push(updatedOption);
+        } else if (id === "drink") {
+          updatedAddDrinks.push(updatedOption);
+        }
+      }
+
+      return {
+        ...prev,
+        extras: updatedExtras,
+        extraDressings: updatedExtraDressings,
+        addDrinks: updatedAddDrinks,
+      };
     });
   };
 
@@ -34,6 +72,46 @@ const ProductExtraCard = ({ index, option, prize, setPrize }) => {
       });
 
       setQuantity(newSelectedState ? 1 : 0);
+
+      setCartItem((prev) => {
+        let updatedExtras = [...prev.extras];
+        let updatedExtraDressings = [...prev.extraDressings];
+        let updatedAddDrinks = [...prev.addDrinks];
+
+        if (newSelectedState) {
+          const updatedOption = { ...option, quantity: 1 };
+
+          if (id === "extra") {
+            updatedExtras.push(updatedOption);
+          } else if (id === "dressing") {
+            updatedExtraDressings.push(updatedOption);
+          } else if (id === "drink") {
+            updatedAddDrinks.push(updatedOption);
+          }
+        } else {
+          if (id === "extra") {
+            updatedExtras = updatedExtras.filter(
+              (item) => item.name !== option.name
+            );
+          } else if (id === "dressing") {
+            updatedExtraDressings = updatedExtraDressings.filter(
+              (item) => item.name !== option.name
+            );
+          } else if (id === "drink") {
+            updatedAddDrinks = updatedAddDrinks.filter(
+              (item) => item.name !== option.name
+            );
+          }
+        }
+
+        return {
+          ...prev,
+          extras: updatedExtras,
+          extraDressings: updatedExtraDressings,
+          addDrinks: updatedAddDrinks,
+        };
+      });
+
       return newSelectedState;
     });
   };

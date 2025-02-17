@@ -6,19 +6,33 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { useTranslation } from "react-i18next";
 import ShowMoreBtn from "../../../button/showMoreButton";
 
-const ProductDeselectOption = ({ deselectList }) => {
+const ProductDeselectOption = ({ deselectList, setCartItem }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
-  const handleSelectOption = (index) => {
+  const handleSelectOption = (index, option) => {
     setSelectedOptions((prevSelected) => {
+      let newSelected;
       if (prevSelected.includes(index)) {
-        return prevSelected.filter((optionIndex) => optionIndex !== index);
+        newSelected = prevSelected.filter(
+          (optionIndex) => optionIndex !== index
+        );
+        setCartItem((prev) => ({
+          ...prev,
+          deselectIngredients: prev.deselectIngredients.filter(
+            (item) => item !== option
+          ),
+        }));
       } else {
-        return [...prevSelected, index];
+        newSelected = [...prevSelected, index];
+        setCartItem((prev) => ({
+          ...prev,
+          deselectIngredients: [...prev.deselectIngredients, option],
+        }));
       }
+      return newSelected;
     });
   };
 
@@ -50,7 +64,7 @@ const ProductDeselectOption = ({ deselectList }) => {
       {itemsToShow.map((option, index) => (
         <Box
           key={index}
-          onClick={() => handleSelectOption(index)}
+          onClick={() => handleSelectOption(index, option)}
           sx={{
             padding: "10px",
             borderRadius: 2,

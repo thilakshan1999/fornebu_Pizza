@@ -3,10 +3,26 @@ import PrimaryBtn from "../../../button/primartButton";
 import { formatPrice } from "../../../../utils/formatPrize";
 import { useTranslation } from "react-i18next";
 import QuantityButton from "../../../button/quantityButton";
+import { useContext } from "react";
+import { CartContext } from "../../../../provider/cartProvider";
 
-const ProductAddAndQuantity = ({ handleQuantityChange, quantity, prize }) => {
+const ProductAddAndQuantity = ({
+  handleQuantityChange,
+  quantity,
+  prize,
+  cartItem,
+  onClose,
+}) => {
   const { t } = useTranslation();
+  const { addToCart } = useContext(CartContext);
   const totalPrize = prize * quantity;
+
+  const handleAddToCart = () => {
+    addToCart(cartItem);
+    onClose();
+    //toast.success(t("Product added to cart successfully!")); // Show success toast message
+  };
+
   return (
     <Box
       display="flex"
@@ -33,7 +49,9 @@ const ProductAddAndQuantity = ({ handleQuantityChange, quantity, prize }) => {
             <strong>{t("Add To Cart")}</strong>&nbsp;{formatPrice(totalPrize)}
           </>
         }
-        onClick={() => {}}
+        onClick={() => {
+          handleAddToCart();
+        }}
       />
     </Box>
   );

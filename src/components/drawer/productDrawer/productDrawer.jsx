@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Drawer, useTheme } from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import ProductAddAndQuantity from "./drawerComponent/productAddAndQuantity";
 import ProductDrawerTittle from "./drawerComponent/productDrawerTittle";
 import ProductDrawerBody from "./drawerComponent/productDrawerBody";
@@ -7,6 +7,20 @@ import ProductDrawerBody from "./drawerComponent/productDrawerBody";
 const ProductDrawer = ({ open, onClose, product, id }) => {
   const [quantity, setQuantity] = useState(1);
   const [prize, setPrize] = useState(product.amount);
+  const [cartItem, setCartItem] = useState({
+    id: 0,
+    productId: product.id,
+    productName: product.name,
+    productBasePrize: product.amount,
+    productUnitPrize: prize,
+    quantity: quantity,
+    note: "",
+    select: [],
+    deselectIngredients: [],
+    extras: [],
+    extraDressings: [],
+    addDrinks: [],
+  });
 
   const handleQuantityChange = (amount) => {
     setQuantity((prev) => Math.max(1, prev + amount));
@@ -14,9 +28,18 @@ const ProductDrawer = ({ open, onClose, product, id }) => {
 
   useEffect(() => {
     if (open) {
-      setPrize(product.amount); // Reset prize to product.amount when the drawer opens
+      setPrize(product.amount);
+      setQuantity(1);
     }
   }, [open, product.amount]);
+
+  useEffect(() => {
+    setCartItem((prev) => ({
+      ...prev,
+      quantity: quantity,
+      productUnitPrize: prize,
+    }));
+  }, [quantity, prize]);
 
   return (
     <Drawer
@@ -39,6 +62,7 @@ const ProductDrawer = ({ open, onClose, product, id }) => {
           product={product}
           prize={prize}
           setPrize={setPrize}
+          setCartItem={setCartItem}
         />
 
         {/* Add & Quantity */}
@@ -46,6 +70,8 @@ const ProductDrawer = ({ open, onClose, product, id }) => {
           handleQuantityChange={handleQuantityChange}
           quantity={quantity}
           prize={prize}
+          cartItem={cartItem}
+          onClose={onClose}
         />
       </Box>
     </Drawer>

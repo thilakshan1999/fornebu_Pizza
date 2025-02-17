@@ -4,7 +4,13 @@ import CustomTypography from "../../../typography/customTypography";
 import ShowMoreBtn from "../../../button/showMoreButton";
 import ProductExtraCard from "./productExtraCard";
 
-const ProductExtraOption = ({ extraList, prize, setPrize, tittle }) => {
+const ProductExtraOption = ({
+  id,
+  extraList,
+  setPrize,
+  tittle,
+  setCartItem,
+}) => {
   const theme = useTheme();
 
   const [showMore, setShowMore] = useState(false);
@@ -36,10 +42,11 @@ const ProductExtraOption = ({ extraList, prize, setPrize, tittle }) => {
       />
       {itemsToShow.map((option, index) => (
         <ProductExtraCard
+          id={id}
           index={index}
           option={option}
-          prize={prize}
           setPrize={setPrize}
+          setCartItem={setCartItem}
         />
       ))}
 

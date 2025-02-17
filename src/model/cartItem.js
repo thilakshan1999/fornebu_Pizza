@@ -3,7 +3,7 @@ class CartItem {
     id,
     productId,
     productName,
-    productOnlyPrize,
+    productBasePrize,
     productUnitPrize,
     quantity,
     note,
@@ -16,7 +16,7 @@ class CartItem {
     this.id = id;
     this.productId = productId;
     this.productName = productName;
-    this.productOnlyPrize = productOnlyPrize;
+    this.productBasePrize = productBasePrize;
     this.productUnitPrize = productUnitPrize;
     this.quantity = quantity;
     this.note = note;

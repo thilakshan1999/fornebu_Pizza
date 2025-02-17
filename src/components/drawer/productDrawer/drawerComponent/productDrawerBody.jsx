@@ -6,7 +6,7 @@ import ProductExtraOption from "./productExtraOption";
 import { useTranslation } from "react-i18next";
 import ProductOrderNote from "./ProductOrderNote";
 
-const ProductDrawerBody = ({ product, prize, setPrize }) => {
+const ProductDrawerBody = ({ product, prize, setPrize, setCartItem }) => {
   const { t } = useTranslation();
   return (
     <Box
@@ -22,41 +22,48 @@ const ProductDrawerBody = ({ product, prize, setPrize }) => {
           selectList={product.selectOption}
           prize={prize}
           setPrize={setPrize}
+          setCartItem={setCartItem}
         />
       )}
 
       {product.deselectOption.length > 0 && (
-        <ProductDeselectOption deselectList={product.deselectOption} />
+        <ProductDeselectOption
+          deselectList={product.deselectOption}
+          setCartItem={setCartItem}
+        />
       )}
 
       {product.extra.length > 0 && (
         <ProductExtraOption
+          id={"extra"}
           tittle={t("Extra")}
           extraList={product.extra}
-          prize={prize}
           setPrize={setPrize}
+          setCartItem={setCartItem}
         />
       )}
 
       {product.extraDressing.length > 0 && (
         <ProductExtraOption
+          id={"dressing"}
           tittle={t("Extra Dressing")}
           extraList={product.extraDressing}
-          prize={prize}
           setPrize={setPrize}
+          setCartItem={setCartItem}
         />
       )}
 
       {product.addDrink.length > 0 && (
         <ProductExtraOption
+          id={"drink"}
           tittle={t("Add drink")}
           extraList={product.addDrink}
-          prize={prize}
           setPrize={setPrize}
+          setCartItem={setCartItem}
         />
       )}
 
-      <ProductOrderNote />
+      <ProductOrderNote setCartItem={setCartItem} />
     </Box>
   );
 };

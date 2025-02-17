@@ -7,25 +7,37 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import { useTranslation } from "react-i18next";
 import ShowMoreBtn from "../../../button/showMoreButton";
 
-const ProductSelectOption = ({ selectList, prize, setPrize }) => {
+const ProductSelectOption = ({ selectList, prize, setPrize, setCartItem }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [selectedOption, setSelectedOption] = useState(null);
   const [showMore, setShowMore] = useState(false);
 
-  const handleSelectOption = (index, price) => {
-    if (selectedOption === index) {
-      setSelectedOption(null);
-      setPrize(prize - price);
-    } else {
-      if (selectedOption !== null) {
-        const previouslySelectedPrice = selectList[selectedOption].price;
-        setPrize(prize - previouslySelectedPrice + price);
+  const handleSelectOption = (index, option) => {
+    setCartItem((prev) => {
+      let updatedSelect = [];
+
+      if (selectedOption === index) {
+        // If the same option is clicked again, remove it
+        setSelectedOption(null);
+        setPrize(prize - option.price);
       } else {
-        setPrize(prize + price);
+        // If switching options, remove the previous one and add the new one
+        if (selectedOption !== null) {
+          const previouslySelectedPrice = selectList[selectedOption].price;
+          setPrize(prize - previouslySelectedPrice + option.price);
+        } else {
+          setPrize(prize + option.price);
+        }
+        setSelectedOption(index);
+        updatedSelect = [option]; // Only one option can be selected at a time
       }
-      setSelectedOption(index);
-    }
+
+      return {
+        ...prev,
+        select: updatedSelect,
+      };
+    });
   };
 
   const handleShowMoreToggle = () => {
@@ -56,7 +68,7 @@ const ProductSelectOption = ({ selectList, prize, setPrize }) => {
       {itemsToShow.map((option, index) => (
         <Box
           key={index}
-          onClick={() => handleSelectOption(index, option.price)}
+          onClick={() => handleSelectOption(index, option)}
           sx={{
             padding: "10px",
             borderRadius: 2,

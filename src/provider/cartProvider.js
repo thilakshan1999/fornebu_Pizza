@@ -17,6 +17,7 @@ const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (cartItem) => {
+    console.log(cartItem);
     //complete function
   };
 

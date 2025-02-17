@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import noCartItemImg from "../../../../../assets/images/home/no-cart-item.png";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { useTranslation } from "react-i18next";
@@ -30,7 +30,7 @@ const NoCartItem = () => {
       />
       <CustomTypography
         color={theme.palette.text.black}
-        text={t(" Start choosing dishes")}
+        text={t("Start choosing dishes")}
         sx={{
           fontSize: "18px",
           fontWeight: "bold",
@@ -39,7 +39,7 @@ const NoCartItem = () => {
 
       <CustomTypography
         color={theme.palette.text.grey}
-        text={t(" Add items to your cart and place order here.")}
+        text={t("Add items to your cart and place order here.")}
         sx={{
           fontSize: "14px",
         }}

@@ -3,10 +3,13 @@ import CustomTypography from "../../../../../components/typography/customTypogra
 import { useTranslation } from "react-i18next";
 import { formatPrice } from "../../../../../utils/formatPrize";
 import PrimaryBtn from "../../../../../components/button/primartButton";
+import { useContext } from "react";
+import { CartContext } from "../../../../../provider/cartProvider";
 
 const CartCheckout = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const { getCartTotal } = useContext(CartContext);
   return (
     <Box>
       <Box
@@ -38,7 +41,7 @@ const CartCheckout = () => {
           />
           <CustomTypography
             color={theme.palette.text.green}
-            text={formatPrice(10)}
+            text={formatPrice(getCartTotal())}
             sx={{
               fontSize: "18px",
               fontWeight: "bold",
@@ -46,7 +49,7 @@ const CartCheckout = () => {
           />
         </Box>
         <PrimaryBtn
-          text={"Checkout"}
+          text={t("Checkout")}
           sx={{ fontWeight: "bold", width: "100%", marginTop: "15px" }}
         />
       </Box>

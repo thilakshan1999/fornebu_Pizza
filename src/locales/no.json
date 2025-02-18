@@ -42,5 +42,10 @@
     "Preparing Time":"Forbereder tid",
 
     "Start choosing dishes":"Velg produkt",
-    "Add items to your cart and place order here.":"Legg i handlekurven og bestill her.."
+    "Add items to your cart and place order here.":"Legg i handlekurven og bestill her..",
+    "Item added to cart successfully":"Legg varen i handlevognen suksess",
+    "Total":"Totalt",
+    "Incl. tax":"Inkl.MVA",
+    "Note":"Kommentar",
+    "Checkout":"Til Kassen"
 }

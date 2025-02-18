@@ -3,8 +3,12 @@ import { Box } from "@mui/material";
 import CartTittle from "./cartTittle";
 import CartCheckout from "./cartCheckout";
 import NoCartItem from "./noCartItem";
+import { useContext } from "react";
+import CartItems from "./cartItems";
+import { CartContext } from "../../../../../provider/cartProvider";
 
 const Cart = ({ height }) => {
+  const { cartItems } = useContext(CartContext);
   return (
     <Box
       sx={{
@@ -33,9 +37,30 @@ const Cart = ({ height }) => {
         }}
       >
         <CartTittle />
-        {/* <Box flexGrow={1} />
-        <CartCheckout /> */}
-        <NoCartItem />
+        {cartItems.length > 0 ? (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: "100%",
+              overflowY: "hidden",
+            }}
+          >
+            <Box
+              sx={{
+                overflowY: "auto",
+                paddingRight: "5px",
+                marginBlock: "10px",
+              }}
+            >
+              <CartItems cartItems={cartItems} />
+            </Box>
+            <Box flexGrow={1} />
+            <CartCheckout />
+          </Box>
+        ) : (
+          <NoCartItem />
+        )}
       </Box>
     </Box>
   );

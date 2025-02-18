@@ -5,6 +5,9 @@ import { useTranslation } from "react-i18next";
 import QuantityButton from "../../../button/quantityButton";
 import { useContext } from "react";
 import { CartContext } from "../../../../provider/cartProvider";
+import { toast } from "react-toastify";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import showSuccessToast from "../../../toast/showSucessToast";
 
 const ProductAddAndQuantity = ({
   handleQuantityChange,
@@ -20,7 +23,7 @@ const ProductAddAndQuantity = ({
   const handleAddToCart = () => {
     addToCart(cartItem);
     onClose();
-    //toast.success(t("Product added to cart successfully!")); // Show success toast message
+    showSuccessToast(t("Item added to cart successfully"));
   };
 
   return (

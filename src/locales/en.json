@@ -47,6 +47,10 @@
     "Total":"Total",
     "Incl. tax":"Incl. tax",
     "Note":"Note",
-    "Checkout":"Checkout"
-
+    "Checkout":"Checkout",
+    "Confirm Removal":"Confirm Removal",
+    "Are you sure you want to remove this item from the cart?":"Are you sure you want to remove this item from the cart?",
+    "Cancel":"Cancel",
+    "Remove":"Remove",
+    "Item removed from cart successfully":"Item removed from cart successfully"
 }

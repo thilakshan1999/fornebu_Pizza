@@ -1,16 +1,42 @@
-import { Box, Divider, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  useTheme,
+} from "@mui/material";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { formatAddPrice, formatPrice } from "../../../../../utils/formatPrize";
 import { useTranslation } from "react-i18next";
 import QuantityButton from "../../../../../components/button/quantityButton";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../../../../../provider/cartProvider";
+import CustomConfirmationDialog from "../../../../../components/dialog/customConfirmationDialog";
+import showClearToast from "../../../../../components/toast/showClearToast";
 
 const CartItems = ({ cartItems }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [quantity, setQuantity] = useState(1);
-  const handleQuantityChange = (amount) => {
-    setQuantity((prev) => Math.max(1, prev + amount));
+  const { updateCartItemQuantity, removeFromCart } = useContext(CartContext);
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+
+  const handleRemoveClick = (id) => {
+    setSelectedItemId(id);
+    setOpenDialog(true);
+  };
+
+  const handleConfirmRemove = () => {
+    if (selectedItemId !== null) {
+      removeFromCart(selectedItemId);
+      showClearToast(t("Item removed from cart successfully"));
+    }
+    setOpenDialog(false);
+    setSelectedItemId(null);
   };
 
   return (
@@ -35,7 +61,7 @@ const CartItems = ({ cartItems }) => {
             />
             <CustomTypography
               color={theme.palette.text.black}
-              text={formatPrice(item.productBasePrize * item.quantity)}
+              text={formatPrice(item.productBasePrize)}
               sx={{
                 fontSize: "16px",
                 fontWeight: "bold",
@@ -70,7 +96,7 @@ const CartItems = ({ cartItems }) => {
                   />
                   <CustomTypography
                     color={theme.palette.text.black}
-                    text={formatAddPrice(selectItem.price * item.quantity)}
+                    text={formatAddPrice(selectItem.price)}
                     sx={{
                       fontSize: "13px",
                     }}
@@ -148,7 +174,9 @@ const CartItems = ({ cartItems }) => {
 
                   <CustomTypography
                     color={theme.palette.text.black}
-                    text={formatAddPrice(selectItem.amount * item.quantity)}
+                    text={formatAddPrice(
+                      selectItem.amount * selectItem.quantity
+                    )}
                     sx={{
                       fontSize: "13px",
                     }}
@@ -196,7 +224,9 @@ const CartItems = ({ cartItems }) => {
 
                   <CustomTypography
                     color={theme.palette.text.black}
-                    text={formatAddPrice(selectItem.amount * item.quantity)}
+                    text={formatAddPrice(
+                      selectItem.amount * selectItem.quantity
+                    )}
                     sx={{
                       fontSize: "13px",
                     }}
@@ -244,7 +274,9 @@ const CartItems = ({ cartItems }) => {
 
                   <CustomTypography
                     color={theme.palette.text.black}
-                    text={formatAddPrice(selectItem.amount * item.quantity)}
+                    text={formatAddPrice(
+                      selectItem.amount * selectItem.quantity
+                    )}
                     sx={{
                       fontSize: "13px",
                     }}
@@ -295,7 +327,11 @@ const CartItems = ({ cartItems }) => {
             <QuantityButton
               quantity={item.quantity}
               handleQuantityChange={(amount) => {
-                setQuantity((prev) => Math.max(1, prev + amount));
+                if (item.quantity + amount <= 0) {
+                  handleRemoveClick(item.id);
+                } else {
+                  updateCartItemQuantity(item.id, item.quantity + amount);
+                }
               }}
               size={"28px"}
               fontSize={"18px"}
@@ -314,6 +350,12 @@ const CartItems = ({ cartItems }) => {
           <Divider />
         </Box>
       ))}
+
+      <CustomConfirmationDialog
+        openDialog={openDialog}
+        setOpenDialog={setOpenDialog}
+        onClick={handleConfirmRemove}
+      />
     </Box>
   );
 };

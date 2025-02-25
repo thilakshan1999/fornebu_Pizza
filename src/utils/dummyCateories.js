@@ -1,21 +1,23 @@
 import { Product } from "../model/product";
 
 const DummyCategories = [
-  "Internett deal",
-  "Amerikansk Pizza",
-  "Italiensk Pizza",
-  "Kebab / Grill",
-  "Middagsretter",
-  "Crispy Fried Chicken",
-  "Burger Retter",
-  "Calzone",
-  "Småretter",
-  "Snacks",
-  "Salat",
-  "Barne Meny",
-  "Ekstra Tilbehør",
-  "Drikke",
+  { id: 1, name: "Internett deal" },
+  { id: 2, name: "Amerikansk Pizza" },
+  { id: 3, name: "Italiensk Pizza" },
+  { id: 4, name: "Kebab / Grill" },
+  { id: 5, name: "Middagsretter" },
+  { id: 6, name: "Crispy Fried Chicken" },
+  { id: 7, name: "Burger Retter" },
+  { id: 8, name: "Calzone" },
+  { id: 9, name: "Småretter" },
+  { id: 10, name: "Snacks" },
+  { id: 11, name: "Salat" },
+  { id: 12, name: "Barne Meny" },
+  { id: 13, name: "Ekstra Tilbehør" },
+  { id: 14, name: "Drikke" },
 ];
+
+export default DummyCategories;
 
 const generateDummyProduct = (id, category) => {
   return new Product(
@@ -59,12 +61,12 @@ const generateDummyProduct = (id, category) => {
 };
 
 const generateDummyData = () => {
-  return DummyCategories.map((categoryName, index) => ({
+  return DummyCategories.map((category, index) => ({
     categoryId: index + 1,
-    categoryName: categoryName,
+    categoryName: category.name,
     productList: Array.from(
       { length: Math.floor(Math.random() * 5) + 1 },
-      (_, i) => generateDummyProduct(index * 10 + i + 1, categoryName)
+      (_, i) => generateDummyProduct(index * 10 + i + 1, category)
     ),
   }));
 };

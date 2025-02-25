@@ -44,7 +44,7 @@ const generateDummyProduct = (id) => {
       { name: "Option 1", price: 1 },
       { name: "Option 2", price: 2 },
     ],
-    ["No Cheese", "No Sauce"],
+
     [
       {
         id: id + 100,

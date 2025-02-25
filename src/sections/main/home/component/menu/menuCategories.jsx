@@ -2,15 +2,17 @@ import React, { useRef, useState, useEffect } from "react";
 import { Box, Button, IconButton } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { DummyCategories } from "../../../../../utils/dummyCateories";
+import CategoryApi from "../../../../../api/category";
 
 const CategoryScroll = ({ handleCategoryClick }) => {
   const scrollContainerRef = useRef(null);
+  const [categories, setCategories] = useState([]);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
 
   // Check if scrolling is needed
   const checkScroll = () => {
+    console.log("data");
     if (scrollContainerRef.current) {
       const { scrollWidth, clientWidth, scrollLeft } =
         scrollContainerRef.current;
@@ -30,16 +32,33 @@ const CategoryScroll = ({ handleCategoryClick }) => {
     }
   };
 
-  // Attach scroll event listener
   useEffect(() => {
-    checkScroll();
     const container = scrollContainerRef.current;
     if (container) {
       container.addEventListener("scroll", checkScroll);
-      return () => container.removeEventListener("scroll", checkScroll);
     }
-  }, []);
 
+    return () => {
+      if (container) {
+        container.removeEventListener("scroll", checkScroll);
+      }
+    };
+  }, []); // Runs only once on mount
+
+  // ✅ Update arrow visibility when categories change (after API load)
+  useEffect(() => {
+    checkScroll();
+  }, [categories]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await CategoryApi.getCategoryName();
+      if (data) {
+        setCategories(data);
+      }
+    };
+    fetchCategories();
+  }, []);
   return (
     <Box
       display="flex"
@@ -77,7 +96,7 @@ const CategoryScroll = ({ handleCategoryClick }) => {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        {DummyCategories.map((category, index) => (
+        {categories.map((category, index) => (
           <Button
             key={index}
             onClick={() => handleCategoryClick(index)}
@@ -93,7 +112,7 @@ const CategoryScroll = ({ handleCategoryClick }) => {
               "&:hover": { backgroundColor: "rgba(0, 0, 0, 0.3)" },
             }}
           >
-            {category}
+            {category.name}
           </Button>
         ))}
       </Box>

@@ -3,6 +3,8 @@ import ProductCard from "../../../../../components/card/productCard";
 import { dummyData } from "../../../../../utils/dummyCateories";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { useEffect } from "react";
+import CategoryApi from "../../../../../api/category";
 
 const HomeContent = () => {
   const { categoryRefs } = useOutletContext();
@@ -18,6 +20,18 @@ const HomeContent = () => {
         .toLowerCase()}/${categoryId}`
     );
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await CategoryApi.getCategoryName();
+      console.log("data");
+      console.log(data);
+      // if (data) {
+      //   setCategories(data);
+      // }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     <Box

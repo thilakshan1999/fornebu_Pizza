@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Drawer,
   List,
@@ -9,11 +9,12 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DummyCategories } from "../../../../utils/dummyCateories";
+import CategoryApi from "../../../../api/category";
 
-const categories = DummyCategories.map((name, index) => ({
-  name,
-  id: index,
-}));
+// const categories = DummyCategories.map((category) => ({
+//   name: category.name,
+//   id: category.id,
+// }));
 
 const CategoryDrawer = ({
   open,
@@ -23,6 +24,17 @@ const CategoryDrawer = ({
   const navigate = useNavigate();
   const location = useLocation();
   const isHomeSelected = location.pathname === "/";
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const data = await CategoryApi.getCategoryName();
+      if (data) {
+        setCategories(data);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const toggleDrawer = (state) => () => {
     setOpen(state);

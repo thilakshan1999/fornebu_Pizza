@@ -47,5 +47,10 @@
     "Total":"Totalt",
     "Incl. tax":"Inkl.MVA",
     "Note":"Kommentar",
-    "Checkout":"Til Kassen"
+    "Checkout":"Til Kassen",
+    "Confirm Removal" : "Bekreft fjerning",
+    "Are you sure you want to remove this item from the cart?":"Er du sikker på at du vil fjerne denne varen fra handlekurven?",
+    "Cancel":"Avbryt",
+    "Remove":"Fjern",
+    "Item removed from cart successfully":"Varen ble fjernet fra handlekurven"
 }

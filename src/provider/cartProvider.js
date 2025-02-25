@@ -79,9 +79,8 @@ const CartProvider = ({ children }) => {
 
   //------------------------------------
   const removeFromCart = (id) => {
-    setCartItems((prevCart) =>
-      prevCart.filter((item) => item.foodInfo.id !== id)
-    );
+    console.log("removeFromCart id " + id);
+    setCartItems((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
   const clearCart = () => {

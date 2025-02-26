@@ -17,27 +17,27 @@ const ProductDrawerBody = ({ product, prize, setPrize, setCartItem }) => {
     >
       <ProductDrawerInfo product={product} />
 
-      {product.selectOption.length > 0 && (
+      {product.selectOptions.length > 0 && (
         <ProductSelectOption
-          selectList={product.selectOption}
+          selectList={product.selectOptions}
           prize={prize}
           setPrize={setPrize}
           setCartItem={setCartItem}
         />
       )}
 
-      {product.deselectOption.length > 0 && (
+      {product.deselectOptions.length > 0 && (
         <ProductDeselectOption
-          deselectList={product.deselectOption}
+          deselectList={product.deselectOptions}
           setCartItem={setCartItem}
         />
       )}
 
-      {product.extra.length > 0 && (
+      {product.extras.length > 0 && (
         <ProductExtraOption
           id={"extra"}
           tittle={t("Extra")}
-          extraList={product.extra}
+          extraList={product.extras}
           setPrize={setPrize}
           setCartItem={setCartItem}
         />
@@ -53,11 +53,11 @@ const ProductDrawerBody = ({ product, prize, setPrize, setCartItem }) => {
         />
       )}
 
-      {product.addDrink.length > 0 && (
+      {product.addDrinks.length > 0 && (
         <ProductExtraOption
           id={"drink"}
           tittle={t("Add drink")}
-          extraList={product.addDrink}
+          extraList={product.addDrinks}
           setPrize={setPrize}
           setCartItem={setCartItem}
         />

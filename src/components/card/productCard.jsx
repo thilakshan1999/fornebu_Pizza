@@ -24,8 +24,11 @@ const ProductCard = ({ product, id }) => {
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           bgcolor: "white",
           borderRadius: "10px",
+          cursor: product.stock > 0 ? "pointer" : "default",
         }}
-        onClick={() => setIsDrawerOpen(true)}
+        onClick={() => {
+          if (product.stock > 0) setIsDrawerOpen(true);
+        }}
       >
         <Box
           sx={{
@@ -58,20 +61,23 @@ const ProductCard = ({ product, id }) => {
             }}
           />
 
-          <CustomTypography
-            color={theme.palette.text.grey}
-            text={
-              <>
-                <strong>Allerg:</strong> {product.allerg}
-              </>
-            }
-            sx={{
-              fontSize: "14px",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          />
+          {product.allerg !== "" && (
+            <CustomTypography
+              color={theme.palette.text.grey}
+              text={
+                <>
+                  <strong>Allerg:</strong> {product.allerg}
+                </>
+              }
+              sx={{
+                fontSize: "14px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            />
+          )}
+
           <Box sx={{ display: "flex", alignItems: "end", marginTop: "10px" }}>
             {[
               product.selectOption,
@@ -140,10 +146,10 @@ const ProductCard = ({ product, id }) => {
           )}
 
           {/* Show image if it's valid and not broken */}
-          {product.img && !imageError ? (
+          {product.imgURl && !imageError ? (
             <CardMedia
               component="img"
-              image={product.img}
+              image={product.imgURl}
               alt={product.name}
               sx={{
                 width: "150px",

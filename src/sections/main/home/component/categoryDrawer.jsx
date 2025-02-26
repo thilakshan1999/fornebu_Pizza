@@ -8,13 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import { DummyCategories } from "../../../../utils/dummyCateories";
 import CategoryApi from "../../../../api/category";
-
-// const categories = DummyCategories.map((category) => ({
-//   name: category.name,
-//   id: category.id,
-// }));
 
 const CategoryDrawer = ({
   open,

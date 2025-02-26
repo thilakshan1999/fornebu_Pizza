@@ -70,10 +70,10 @@ const ProductDrawerInfo = ({ product }) => {
         )}
 
         {/* Show image if it's valid and not broken */}
-        {product.img && !imageError ? (
+        {product.imgURl && !imageError ? (
           <CardMedia
             component="img"
-            image={product.img}
+            image={product.imgURl}
             alt={product.name}
             sx={{
               width: { xs: "100%", md: "150px" },
@@ -105,7 +105,7 @@ const ProductDrawerInfo = ({ product }) => {
         sx={{
           marginLeft: { xs: "0", md: "15px" },
           marginTop: { xs: "15px", md: "0" },
-          width: { xs: "100$", md: "350px" },
+          width: { xs: "100%", md: "350px" },
         }}
       >
         <CustomTypography
@@ -133,20 +133,22 @@ const ProductDrawerInfo = ({ product }) => {
           {product.description}
         </Typography>
 
-        <CustomTypography
-          color={theme.palette.text.grey}
-          text={
-            <>
-              <strong>Allerg:</strong> {product.allerg}
-            </>
-          }
-          sx={{
-            fontSize: "14px",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        />
+        {product.allerg !== "" && (
+          <CustomTypography
+            color={theme.palette.text.grey}
+            text={
+              <>
+                <strong>Allerg:</strong> {product.allerg}
+              </>
+            }
+            sx={{
+              fontSize: "14px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          />
+        )}
 
         {/* Show 'View More' only if the text is long */}
         {isOverflowing && (

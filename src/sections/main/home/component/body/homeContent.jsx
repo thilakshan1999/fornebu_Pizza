@@ -3,13 +3,13 @@ import ProductCard from "../../../../../components/card/productCard";
 import { dummyData } from "../../../../../utils/dummyCateories";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CategoryApi from "../../../../../api/category";
 
 const HomeContent = () => {
   const { categoryRefs } = useOutletContext();
   const theme = useTheme();
-
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
   const handleCategoryClick = (categoryName, categoryId) => {
@@ -23,12 +23,12 @@ const HomeContent = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await CategoryApi.getCategoryName();
+      const data = await CategoryApi.getCategories();
       console.log("data");
       console.log(data);
-      // if (data) {
-      //   setCategories(data);
-      // }
+      if (data) {
+        setCategories(data);
+      }
     };
     fetchCategories();
   }, []);
@@ -42,7 +42,7 @@ const HomeContent = () => {
         boxSizing: "border-box",
       }}
     >
-      {dummyData.map((category, index) => (
+      {categories.map((category, index) => (
         <Box
           key={index}
           ref={(el) => (categoryRefs.current[index] = el)}
@@ -54,13 +54,11 @@ const HomeContent = () => {
                 cursor: "pointer", // Make the typography clickable
                 display: "inline-block",
               }}
-              onClick={() =>
-                handleCategoryClick(category.categoryName, category.categoryId)
-              }
+              onClick={() => handleCategoryClick(category.name, category.id)}
             >
               <CustomTypography
                 color={theme.palette.text.black}
-                text={category.categoryName}
+                text={category.name}
                 sx={{
                   fontSize: "18px",
                   fontWeight: "bold",
@@ -71,7 +69,7 @@ const HomeContent = () => {
             </Box>
             <CustomTypography
               color={theme.palette.text.green}
-              text={"(" + category.productList.length + " items)"}
+              text={"(" + category.products.length + " items)"}
               sx={{
                 fontSize: "16px",
                 marginBottom: "10px",
@@ -79,7 +77,7 @@ const HomeContent = () => {
             />
           </Box>
           <Grid2 container spacing={2}>
-            {category.productList.map((product, index) => (
+            {category.products.map((product, index) => (
               <Grid2 size={{ xs: 12, lg: 6 }} key={product.id}>
                 <ProductCard product={product} id={index + 1} />
               </Grid2>

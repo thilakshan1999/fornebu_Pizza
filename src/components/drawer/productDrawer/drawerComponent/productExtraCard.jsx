@@ -161,7 +161,12 @@ const ProductExtraCard = ({ index, option, setPrize, id, setCartItem }) => {
         >
           <CustomTypography
             color={theme.palette.text.green}
-            text={"+ " + formatPrice(option.amount)}
+            text={
+              "+ " +
+              (id === "dressing"
+                ? formatPrice(option.prize)
+                : formatPrice(option.amount))
+            }
             sx={{
               fontSize: "16px",
               fontWeight: "bold",

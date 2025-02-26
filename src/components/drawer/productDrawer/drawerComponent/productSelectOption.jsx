@@ -20,14 +20,14 @@ const ProductSelectOption = ({ selectList, prize, setPrize, setCartItem }) => {
       if (selectedOption === index) {
         // If the same option is clicked again, remove it
         setSelectedOption(null);
-        setPrize(prize - option.price);
+        setPrize(prize - option.prize);
       } else {
         // If switching options, remove the previous one and add the new one
         if (selectedOption !== null) {
           const previouslySelectedPrice = selectList[selectedOption].price;
           setPrize(prize - previouslySelectedPrice + option.price);
         } else {
-          setPrize(prize + option.price);
+          setPrize(prize + option.prize);
         }
         setSelectedOption(index);
         updatedSelect = [option]; // Only one option can be selected at a time
@@ -105,7 +105,7 @@ const ProductSelectOption = ({ selectList, prize, setPrize, setCartItem }) => {
             />
             <CustomTypography
               color={theme.palette.text.green}
-              text={"+ " + formatPrice(option.price)}
+              text={"+ " + formatPrice(option.prize)}
               sx={{
                 fontSize: "16px",
                 fontWeight: "bold",

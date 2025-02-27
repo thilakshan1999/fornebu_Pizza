@@ -1,7 +1,6 @@
 import { Avatar, Box, IconButton, Toolbar } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
-import MenuIcon from "@mui/icons-material/Menu";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import AdminProfileMenu from "./adminProfileMenu";
 
@@ -33,12 +32,7 @@ const AppBar = styled(MuiAppBar, {
   ],
 }));
 
-const AdminDrawerHeader = ({
-  open,
-  handleDrawerToggle,
-  email = "redhood@example.com",
-}) => {
-  const theme = useTheme();
+const AdminDrawerHeader = ({ open, email = "redhood@example.com" }) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -51,36 +45,11 @@ const AdminDrawerHeader = ({
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerToggle}
-          edge="start"
-          sx={[
-            {
-              color: theme.palette.text.lightGrey,
-              marginRight: 5,
-            },
-            open && { display: "none" },
-          ]}
-        >
-          <MenuIcon />
-        </IconButton>
         <Box
           sx={{
-            cursor: "pointer", // Makes the text look clickable
-            fontWeight: "bold",
-            fontSize: {
-              xs: "16px",
-              sm: "20px",
-              md: "24px",
-            },
-            color: theme.palette.text.lightGrey,
             flexGrow: 1,
           }}
-        >
-          RedHood Restaurant
-        </Box>
+        />
         <Box sx={{ display: "flex", gap: 2 }}>
           <IconButton onClick={handleOpenMenu} sx={{ p: 0 }}>
             <Avatar

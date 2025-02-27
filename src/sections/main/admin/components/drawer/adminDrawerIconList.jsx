@@ -6,6 +6,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useTranslation } from "react-i18next";
 
 const AdminDrawerIconList = ({
   menuItems,
@@ -14,8 +15,9 @@ const AdminDrawerIconList = ({
   selectedMenu,
 }) => {
   const theme = useTheme();
-  const selectedBgColor = "#FFE0C2"; // Light orange for selected background
-  const selectedHoverColor = "#FFD1A3"; // Slightly darker on hover when selected
+  const { t } = useTranslation();
+  const selectedBgColor = "#e1f0db"; // Light green for selected background
+  const selectedHoverColor = "#c8e0be"; // Slightly darker on hover when selected
   const unselectedHoverColor = "#f5f5f5";
 
   return (
@@ -49,25 +51,26 @@ const AdminDrawerIconList = ({
                 justifyContent: "center",
                 color:
                   selectedMenu === item.text
-                    ? "#f8780f"
+                    ? theme.palette.text.green
                     : theme.palette.text.lightGrey,
               }}
             >
               {item.icon}
             </ListItemIcon>
             <ListItemText
-              primary={item.text}
+              primary={t(item.text)}
               sx={{
                 marginLeft: open ? "30px" : "0",
                 opacity: 1,
                 textAlign: "center",
                 "& .MuiTypography-root": {
-                  fontSize: open ? "18px" : "12px",
+                  fontSize: open ? "16px" : "12px",
                   textAlign: "left",
-                  fontWeight: open ? "600" : "400",
+                  fontWeight: "400",
+
                   color:
                     selectedMenu === item.text
-                      ? "#f8780f"
+                      ? theme.palette.text.green
                       : theme.palette.text.lightGrey,
                 },
               }}

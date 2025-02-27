@@ -12,6 +12,11 @@ import LunchDiningIcon from "@mui/icons-material/LunchDining";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import AdminDrawerHeader from "./adminDrawerHeader";
 import AdminDrawerIconList from "./adminDrawerIconList";
+import tittleIcon from "../../../../../assets/images/home/Icon.png";
+import CustomTypography from "../../../../../components/typography/customTypography";
+import CategorySection from "../../categorySection";
+import LanguageSelection from "../../../../header/components/languageSelection";
+import { useTranslation } from "react-i18next";
 
 const drawerWidth = 240;
 
@@ -38,7 +43,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   alignItems: "center",
   justifyContent: "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -69,6 +73,7 @@ const Drawer = styled(MuiDrawer, {
 
 export default function AdminDrawer() {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [open, setOpen] = React.useState(false);
   const [selectedMenu, setSelectedMenu] = React.useState("Orders");
 
@@ -87,8 +92,51 @@ export default function AdminDrawer() {
       <CssBaseline />
       <AdminDrawerHeader open={open} handleDrawerOpen={handleDrawerToggle} />
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerToggle}>
+        <DrawerHeader
+          sx={{
+            position: "relative",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexGrow: "1",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={tittleIcon}
+              alt="Profile"
+              style={{
+                width: "40px",
+                height: "40px",
+                objectFit: "contain",
+                borderRadius: "50%",
+              }}
+            />
+
+            {open && (
+              <CustomTypography
+                color={theme.palette.text.grey}
+                text={"Fornebu Pizza "}
+                sx={{
+                  marginLeft: "10px",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                }}
+              />
+            )}
+          </Box>
+
+          <IconButton
+            onClick={handleDrawerToggle}
+            sx={{
+              position: "absolute",
+              right: "-5px",
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          >
             {open ? (
               theme.direction === "rtl" ? (
                 <ChevronRightIcon />
@@ -109,12 +157,22 @@ export default function AdminDrawer() {
           setSelectedMenu={setSelectedMenu}
           open={open}
         />
+        <Box flexGrow={1} />
+
+        <Box
+          sx={{
+            padding: "15px 25px",
+          }}
+        >
+          <LanguageSelection />
+        </Box>
       </Drawer>
+
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
 
         {selectedMenu === "Orders" && <OrderSection />}
-        {selectedMenu === "Categories" && <CategoriesSection />}
+        {selectedMenu === "Categories" && <CategorySection />}
         {selectedMenu === "Products" && <ProductsSection />}
       </Box>
     </Box>
@@ -124,14 +182,6 @@ export default function AdminDrawer() {
 const OrderSection = () => (
   <Box>
     <Typography variant="body1">This is the Order section content.</Typography>
-  </Box>
-);
-
-const CategoriesSection = () => (
-  <Box>
-    <Typography variant="body1">
-      This is the Category section content.
-    </Typography>
   </Box>
 );
 

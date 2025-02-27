@@ -50,7 +50,7 @@ const AdminProfileMenu = ({ email, anchorEl, handleCloseMenu }) => {
           text={email}
           align="centre"
           sx={{
-            fontWeight: "600",
+            fontWeight: "500",
             color: theme.palette.text.black,
             fontSize: "14px",
           }}
@@ -68,7 +68,7 @@ const AdminProfileMenu = ({ email, anchorEl, handleCloseMenu }) => {
           align="centre"
           sx={{
             fontWeight: "600",
-            color: theme.palette.primary.main,
+            color: theme.palette.text.grey,
             fontSize: "14px",
           }}
         />
@@ -86,13 +86,13 @@ const AdminProfileMenu = ({ email, anchorEl, handleCloseMenu }) => {
           align="centre"
           sx={{
             fontWeight: "600",
-            color: theme.palette.primary.main,
+            color: theme.palette.text.red,
             fontSize: "14px",
             flexGrow: "1",
           }}
         />
         <LogoutOutlinedIcon
-          sx={{ fontSize: 20, color: theme.palette.primary.main }}
+          sx={{ fontSize: 20, color: theme.palette.text.red }}
         />
       </MenuItem>
     </Menu>

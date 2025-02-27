@@ -59,17 +59,17 @@ const BottomNavBar = ({ setOpen }) => {
       >
         <BottomNavigationAction
           sx={{ height: "100%" }}
-          label={t("Home")}
+          label={t("HOME")}
           icon={<NavIcon IconComponent={HomeOutlinedIcon} />}
         />
         <BottomNavigationAction
           sx={{ height: "100%" }}
-          label={t("Menu")}
+          label={t("MENU")}
           icon={<NavIcon IconComponent={MenuBookIcon} />}
         />
         <BottomNavigationAction
           sx={{ height: "100%" }}
-          label={t("Cart")}
+          label={t("CART")}
           icon={
             <Badge
               badgeContent={cartItems.length}
@@ -87,7 +87,7 @@ const BottomNavBar = ({ setOpen }) => {
         />
         <BottomNavigationAction
           sx={{ height: "100%" }}
-          label={t("Orders")}
+          label={t("ORDERS")}
           icon={<NavIcon IconComponent={DescriptionOutlinedIcon} />}
         />
       </BottomNavigation>

@@ -19,10 +19,10 @@
     "Term_and_conditions":"Vilkår og betingelser",
     "FAQs":"FAQs",
 
-    "Home":"HJEM",
-    "Menu":"MENY",
-    "Cart":"KURV",
-    "Orders":"ORDRE",
+    "HOME":"HJEM",
+    "MENU":"MENY",
+    "CART":"KURV",
+    "ORDERS":"ORDRE",
 
     "Out of Stock":"Utsolgt",
     "View More":"Se mer",
@@ -52,5 +52,15 @@
     "Are you sure you want to remove this item from the cart?":"Er du sikker på at du vil fjerne denne varen fra handlekurven?",
     "Cancel":"Avbryt",
     "Remove":"Fjern",
-    "Item removed from cart successfully":"Varen ble fjernet fra handlekurven"
+    "Item removed from cart successfully":"Varen ble fjernet fra handlekurven",
+
+    "Orders":"Ordre",
+    "Categories": "Kategorier",
+    "Products": "Produkter",
+    "Category":"Kategori",
+    "Add Category":"Legg til kategori",
+    "Id":"Id",
+    "Name":"Navn",
+    "Edit":"Rediger",
+    "Delete":"Slett"
 }

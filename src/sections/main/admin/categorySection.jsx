@@ -17,24 +17,25 @@ const CategorySection = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const data = await CategoryApi.getBasicCategory();
-        console.log("data");
-        console.log(data);
-        if (data) {
-          setCategories(data);
-        }
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        setError(t("Failed to fetch categories. Please try again."));
-      } finally {
-        setLoading(false);
+  const fetchCategories = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await CategoryApi.getBasicCategory();
+      console.log("data");
+      console.log(data);
+      if (data) {
+        setCategories(data);
       }
-    };
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      setError(t("Failed to fetch categories. Please try again."));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchCategories();
   }, []);
   return (
@@ -66,10 +67,15 @@ const CategorySection = () => {
               />
             )}
           </Box>
-          <CategoryTable categories={categories} loading={loading} />
+          <CategoryTable
+            categories={categories}
+            loading={loading}
+            fetchCategories={fetchCategories}
+          />
           <CategoryAddDialog
             open={openAddDialog}
             onClose={() => setOpenAddDialog(false)}
+            onCategoryAdded={fetchCategories}
           />
         </Box>
       )}

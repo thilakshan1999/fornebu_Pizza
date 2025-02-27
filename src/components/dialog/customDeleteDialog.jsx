@@ -1,5 +1,6 @@
 import {
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -15,7 +16,8 @@ const CustomDeleteDialog = ({
   onClick,
   tittleText,
   msgText,
-  id,
+  loading,
+  error,
 }) => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -42,8 +44,8 @@ const CustomDeleteDialog = ({
       </DialogTitle>
       <DialogContent>
         <CustomTypography
-          color={theme.palette.text.grey}
-          text={msgText}
+          color={error ? theme.palette.text.red : theme.palette.text.grey}
+          text={error ? error : msgText}
           sx={{
             fontSize: "14px",
           }}
@@ -79,7 +81,14 @@ const CustomDeleteDialog = ({
             },
           }}
         >
-          {t("Yes")}
+          {loading ? (
+            <CircularProgress
+              size={20}
+              sx={{ margin: "4px 10px", color: "black" }}
+            />
+          ) : (
+            t("Yes")
+          )}
         </Button>
       </DialogActions>
     </Dialog>

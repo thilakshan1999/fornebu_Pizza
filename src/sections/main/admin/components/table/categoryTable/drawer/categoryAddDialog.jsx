@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -6,20 +6,48 @@ import {
   DialogActions,
   TextField,
   Button,
+  CircularProgress,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useTheme } from "@mui/material/styles";
 import CustomTypography from "../../../../../../../components/typography/customTypography";
+import CategoryApi from "../../../../../../../api/category";
+import showSuccessToast from "../../../../../../../components/toast/showSucessToast";
 
-const CategoryAddDialog = ({ open, onClose }) => {
+const CategoryAddDialog = ({ open, onClose, onCategoryAdded }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [categoryName, setCategoryName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleAdd = () => {
-    if (categoryName.trim() !== "") {
+  useEffect(() => {
+    if (open) {
       setCategoryName("");
-      onClose();
+      setError(false);
+      setLoading(false);
+    }
+  }, [open]);
+
+  const handleAdd = async () => {
+    if (categoryName.trim() !== "") {
+      setLoading(true);
+      try {
+        const result = await CategoryApi.addCategory(categoryName);
+        if (result) {
+          onCategoryAdded();
+          setCategoryName("");
+          onClose();
+          showSuccessToast(t("Category added successfully."));
+        } else {
+          setError(t("Failed to create category"));
+        }
+      } catch (err) {
+        console.error(err);
+        setError(t("Error creating category. Please try again."));
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -53,6 +81,8 @@ const CategoryAddDialog = ({ open, onClose }) => {
           label={t("Category Name")}
           value={categoryName}
           onChange={(e) => setCategoryName(e.target.value)}
+          error={!!error}
+          helperText={error}
           variant="outlined"
           sx={{
             marginTop: "10px",
@@ -77,7 +107,7 @@ const CategoryAddDialog = ({ open, onClose }) => {
           onClick={handleAdd}
           color="primary"
           variant="contained"
-          disabled={!categoryName.trim()}
+          disabled={!categoryName.trim() || loading}
           sx={{
             backgroundColor: theme.palette.button.black,
             color: "white",
@@ -87,7 +117,14 @@ const CategoryAddDialog = ({ open, onClose }) => {
             },
           }}
         >
-          {t("Add")}
+          {loading ? (
+            <CircularProgress
+              size={20}
+              sx={{ margin: "4px 10px", color: "black" }}
+            />
+          ) : (
+            t("Add")
+          )}
         </Button>
       </DialogActions>
     </Dialog>

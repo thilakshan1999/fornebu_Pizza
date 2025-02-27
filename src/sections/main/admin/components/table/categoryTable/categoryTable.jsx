@@ -10,13 +10,24 @@ import { useTranslation } from "react-i18next";
 import CategoryTableRow from "./categoryTableRow";
 import { Skeleton } from "@mui/material";
 
-export default function CategoryTable({ categories, loading }) {
+export default function CategoryTable({
+  categories,
+  loading,
+  fetchCategories,
+}) {
   const theme = useTheme();
   const { t } = useTranslation();
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 300 }} aria-label="simple table">
-        <TableHead sx={{ backgroundColor: "#f5f5f5" }}>
+        <TableHead
+          sx={{
+            backgroundColor: "#f5f5f5",
+            position: "sticky", // Make header sticky
+            top: 0, // Stick it at the top
+            zIndex: 1,
+          }}
+        >
           <TableRow>
             <TableCell
               sx={{
@@ -71,7 +82,11 @@ export default function CategoryTable({ categories, loading }) {
                 </TableRow>
               ))
             : categories.map((category) => (
-                <CategoryTableRow category={category} key={category.id} />
+                <CategoryTableRow
+                  category={category}
+                  key={category.id}
+                  fetchCategories={fetchCategories}
+                />
               ))}
         </TableBody>
       </Table>

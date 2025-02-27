@@ -19,7 +19,12 @@ const ProductExtraOption = ({
     setShowMore(!showMore);
   };
 
-  const itemsToShow = showMore ? extraList : extraList.slice(0, 4);
+  const filteredList =
+    id === "dressing"
+      ? extraList
+      : extraList.filter((option) => option.stock > 0);
+
+  const itemsToShow = showMore ? filteredList : filteredList.slice(0, 4);
 
   return (
     <Box
@@ -50,7 +55,7 @@ const ProductExtraOption = ({
         />
       ))}
 
-      {extraList.length > 4 && (
+      {filteredList.length > 4 && (
         <ShowMoreBtn
           showMore={showMore}
           handleShowMoreToggle={handleShowMoreToggle}

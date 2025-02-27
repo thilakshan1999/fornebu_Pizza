@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   Badge,
   BottomNavigation,
@@ -11,19 +11,24 @@ import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CartContext } from "../../provider/cartProvider";
 
 const BottomNavBar = ({ setOpen }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const isHomeSelected = location.pathname === "/";
-  const value = isHomeSelected ? 0 : -1;
+  const isCartSelected = location.pathname === "/cart";
+  const value = isHomeSelected ? 0 : isCartSelected ? 2 : -1;
+  const { cartItems } = useContext(CartContext);
 
   const handleChange = (event, newValue) => {
     if (newValue === 0) {
-      navigate("/"); // Navigate to Home when 0 is selected
+      navigate("/");
     } else if (newValue === 1) {
       setOpen(true);
+    } else if (newValue === 2) {
+      navigate("/cart");
     }
   };
 
@@ -67,7 +72,7 @@ const BottomNavBar = ({ setOpen }) => {
           label={t("Cart")}
           icon={
             <Badge
-              badgeContent={1}
+              badgeContent={cartItems.length}
               sx={{
                 "& .MuiBadge-badge": {
                   top: 8,

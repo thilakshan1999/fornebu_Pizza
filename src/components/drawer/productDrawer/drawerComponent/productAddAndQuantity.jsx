@@ -5,8 +5,6 @@ import { useTranslation } from "react-i18next";
 import QuantityButton from "../../../button/quantityButton";
 import { useContext } from "react";
 import { CartContext } from "../../../../provider/cartProvider";
-import { toast } from "react-toastify";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import showSuccessToast from "../../../toast/showSucessToast";
 
 const ProductAddAndQuantity = ({

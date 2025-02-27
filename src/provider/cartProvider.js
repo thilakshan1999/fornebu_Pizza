@@ -26,7 +26,6 @@ const CartProvider = ({ children }) => {
     const existingCartItem = cartItems.find(
       (item) => item.productId === cartItem.productId
     );
-
     if (existingCartItem) {
       // Compare relevant fields (note, select, extras, extraDressings, deselectIngredients, addDrinks)
       const isSame =

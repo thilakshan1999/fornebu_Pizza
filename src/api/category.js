@@ -34,5 +34,22 @@ const CategoryApi = {
       return null;
     }
   },
+
+  getCategoriesById: async (id) => {
+    try {
+      const response = await api.get(`/categories/${id}`);
+
+      console.log(response);
+      if (response.data) {
+        return response.data;
+      } else {
+        console.error("No category found in response.");
+        return null;
+      }
+    } catch (err) {
+      console.error("Error fetching category:", err);
+      return null;
+    }
+  },
 };
 export default CategoryApi;

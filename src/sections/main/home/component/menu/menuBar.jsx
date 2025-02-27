@@ -7,6 +7,7 @@ import CategoryScroll from "./menuCategories";
 import { useLocation, useParams } from "react-router-dom";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { useTranslation } from "react-i18next";
+import formatName from "../../../../../utils/formatCategoryName ";
 
 const MenuBar = ({ isFixed, handleCategoryClick, ref }) => {
   const theme = useTheme();
@@ -50,7 +51,7 @@ const MenuBar = ({ isFixed, handleCategoryClick, ref }) => {
         ) : (
           <CustomTypography
             color={theme.palette.text.white}
-            text={categoryName ? categoryName : t("Search")}
+            text={categoryName ? formatName(categoryName) : t("Search")}
             sx={{
               fontSize: "16px",
               fontWeight: "bold",

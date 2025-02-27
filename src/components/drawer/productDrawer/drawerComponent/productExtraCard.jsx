@@ -12,7 +12,9 @@ const ProductExtraCard = ({ index, option, setPrize, id, setCartItem }) => {
 
   const handleQuantityChange = (amount) => {
     const newQuantity = Math.max(0, quantity + amount);
-    const priceDifference = (newQuantity - quantity) * option.amount;
+    const priceDifference =
+      (newQuantity - quantity) *
+      (id === "dressing" ? option.prize : option.amount);
 
     setQuantity(newQuantity);
     setPrize((prevPrize) => prevPrize + priceDifference);
@@ -59,15 +61,15 @@ const ProductExtraCard = ({ index, option, setPrize, id, setCartItem }) => {
     });
   };
 
-  const handleToggleSelect = () => {
+  const handleToggleSelect = (amount) => {
     setIsSelected((prev) => {
       const newSelectedState = !prev;
 
       setPrize((prevPrize) => {
         if (newSelectedState) {
-          return prevPrize + option.amount;
+          return prevPrize + amount;
         } else {
-          return prevPrize - option.amount * quantity;
+          return prevPrize - amount * quantity;
         }
       });
 
@@ -119,7 +121,9 @@ const ProductExtraCard = ({ index, option, setPrize, id, setCartItem }) => {
   return (
     <Box
       key={index}
-      onClick={handleToggleSelect}
+      onClick={() => {
+        handleToggleSelect(id === "dressing" ? option.prize : option.amount);
+      }}
       sx={{
         padding: "10px",
         borderRadius: 2,

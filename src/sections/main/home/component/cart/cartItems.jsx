@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  useTheme,
-} from "@mui/material";
+import { Box, Divider, useTheme } from "@mui/material";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import { formatAddPrice, formatPrice } from "../../../../../utils/formatPrize";
 import { useTranslation } from "react-i18next";
@@ -96,7 +87,7 @@ const CartItems = ({ cartItems }) => {
                   />
                   <CustomTypography
                     color={theme.palette.text.black}
-                    text={formatAddPrice(selectItem.price)}
+                    text={formatAddPrice(selectItem.prize)}
                     sx={{
                       fontSize: "13px",
                     }}
@@ -225,7 +216,7 @@ const CartItems = ({ cartItems }) => {
                   <CustomTypography
                     color={theme.palette.text.black}
                     text={formatAddPrice(
-                      selectItem.amount * selectItem.quantity
+                      selectItem.prize * selectItem.quantity
                     )}
                     sx={{
                       fontSize: "13px",

@@ -5,32 +5,14 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { IconButton } from "@mui/material";
-import { MoreVert } from "@mui/icons-material";
-import { useState } from "react";
-import CategoryTableItemMenu from "./categoryTableItemMenu";
 import { useTheme } from "@emotion/react";
 import { useTranslation } from "react-i18next";
+import CategoryTableRow from "./categoryTableRow";
+import { Skeleton } from "@mui/material";
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 1, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 1, 9.0, 37, 4.3),
-  createData("Eclair", 1, 16.0, 24, 6.0),
-  createData("Cupcake", 1, 3.7, 67, 4.3),
-  createData("Gingerbread", 1, 16.0, 49, 3.9),
-];
-
-export default function CategoryTable() {
+export default function CategoryTable({ categories, loading }) {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-  const handleMenuClick = (event) => {
-    setMenuAnchorEl(event.currentTarget);
-  };
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 300 }} aria-label="simple table">
@@ -51,36 +33,48 @@ export default function CategoryTable() {
             >
               {t("Name")}
             </TableCell>
+            <TableCell
+              sx={{ fontWeight: "bold", color: theme.palette.text.grey }}
+              align="center"
+            >
+              {t("Product Count")}
+            </TableCell>
             <TableCell sx={{ width: "100px" }} align="right"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.calories}
-              </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="right">
-                <IconButton
-                  aria-label="menu"
-                  size="small"
-                  onClick={handleMenuClick}
-                >
-                  <MoreVert />
-                </IconButton>
-              </TableCell>
-            </TableRow>
-          ))}
+          {loading
+            ? Array.from(new Array(5)).map((_, index) => (
+                <TableRow key={index}>
+                  <TableCell
+                    sx={{
+                      width: "100px",
+                    }}
+                  >
+                    <Skeleton variant="text" width={40} height={20} />
+                  </TableCell>
+                  <TableCell>
+                    <Skeleton variant="text" width={120} height={20} />
+                  </TableCell>
+                  <TableCell align="center">
+                    <Skeleton
+                      variant="text"
+                      width={40}
+                      height={20}
+                      sx={{ margin: "auto" }}
+                    />
+                  </TableCell>
+
+                  <TableCell align="right">
+                    <Skeleton variant="rectangular" width={60} height={20} />
+                  </TableCell>
+                </TableRow>
+              ))
+            : categories.map((category) => (
+                <CategoryTableRow category={category} key={category.id} />
+              ))}
         </TableBody>
       </Table>
-      <CategoryTableItemMenu
-        menuAnchorEl={menuAnchorEl}
-        setMenuAnchorEl={setMenuAnchorEl}
-      />
     </TableContainer>
   );
 }

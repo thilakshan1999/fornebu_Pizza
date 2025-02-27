@@ -9,12 +9,14 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import CategoryApi from "../../../../api/category";
+import { useTranslation } from "react-i18next";
 
 const CategoryDrawer = ({
   open,
   setOpen,
   handleCategoryClick: handleCategoryClickHome,
 }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const isHomeSelected = location.pathname === "/";
@@ -22,7 +24,7 @@ const CategoryDrawer = ({
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await CategoryApi.getCategoryName();
+      const data = await CategoryApi.getBasicCategoryHasProducts();
       if (data) {
         setCategories(data);
       }
@@ -53,7 +55,14 @@ const CategoryDrawer = ({
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <List sx={{ width: 250 }}>
           <ListItem>
-            <ListItemText primary="Categories" sx={{ fontWeight: "bold" }} />
+            <ListItemText
+              primary={t("Categories")}
+              sx={{
+                "& .MuiTypography-root": {
+                  fontWeight: "bold",
+                },
+              }}
+            />
           </ListItem>
           <Divider />
 

@@ -62,5 +62,12 @@
     "Id":"Id",
     "Name":"Navn",
     "Edit":"Rediger",
-    "Delete":"Slett"
+    "Delete":"Slett",
+     "No":"Nei",
+    "Yes":"Ja",
+    "Confirm Deletion":"Bekreft sletting",
+    "Are you sure you want to delete this category?":"Er du sikker på at du vil slette denne kategorien?",
+    "Product Count": "Produktantall",
+    "Add":"Legg ti",
+    "Category Name":"Kategoriens navn"
 }

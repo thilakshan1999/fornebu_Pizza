@@ -1,7 +1,7 @@
 import api from "./baseUrl";
 
 const CategoryApi = {
-  getCategoryName: async () => {
+  getBasicCategoryHasProducts: async () => {
     try {
       const response = await api.get("/categories/simple");
 
@@ -18,7 +18,27 @@ const CategoryApi = {
     }
   },
 
-  getCategories: async () => {
+  getBasicCategory: async () => {
+    try {
+      const response = await api.get("/categories/simple/all");
+
+      console.log(response);
+      if (response.data) {
+        return response.data;
+      } else {
+        console.error("No categories found in response.");
+        return null;
+      }
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+      if (!err.response) {
+        throw new Error("Network error: Unable to connect to the server.");
+      }
+      return null;
+    }
+  },
+
+  getCategoriesHasProducts: async () => {
     try {
       const response = await api.get("/categories");
 

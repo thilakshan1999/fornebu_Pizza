@@ -10,7 +10,6 @@ const CategoryScroll = ({ handleCategoryClick }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
 
-  // Check if scrolling is needed
   const checkScroll = () => {
     console.log("data");
     if (scrollContainerRef.current) {
@@ -21,7 +20,6 @@ const CategoryScroll = ({ handleCategoryClick }) => {
     }
   };
 
-  // Scroll function
   const scroll = (direction) => {
     if (scrollContainerRef.current) {
       const scrollAmount = 150; // Adjust scrolling speed
@@ -43,16 +41,15 @@ const CategoryScroll = ({ handleCategoryClick }) => {
         container.removeEventListener("scroll", checkScroll);
       }
     };
-  }, []); // Runs only once on mount
+  }, []);
 
-  // ✅ Update arrow visibility when categories change (after API load)
   useEffect(() => {
     checkScroll();
   }, [categories]);
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await CategoryApi.getCategoryName();
+      const data = await CategoryApi.getBasicCategoryHasProducts();
       if (data) {
         setCategories(data);
       }

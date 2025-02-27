@@ -11,7 +11,7 @@ const AddItemButton = ({ text, onClick, sx }) => {
         boxShadow: "none",
         borderRadius: "8px",
         padding: "8px 20px",
-        backgroundColor: "#333333",
+        backgroundColor: theme.palette.button.black,
         color: "white",
         fontFamily: theme.typography.fontFamily,
         textTransform: "none",

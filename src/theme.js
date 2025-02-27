@@ -20,6 +20,7 @@ const theme = createTheme({
       red: "red",
       grey: "#7f7f7f",
       white: "#ffffff",
+      black: "#333333",
     },
     border: {
       main: "#e9e9ec",

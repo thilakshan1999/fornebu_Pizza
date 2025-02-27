@@ -26,7 +26,7 @@ const HomeContent = () => {
     const fetchCategories = async () => {
       setLoading(true);
       try {
-        const data = await CategoryApi.getCategories();
+        const data = await CategoryApi.getCategoriesHasProducts();
         if (data) {
           setCategories(data);
         }

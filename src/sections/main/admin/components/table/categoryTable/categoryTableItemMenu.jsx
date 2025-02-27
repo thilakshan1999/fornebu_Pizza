@@ -42,7 +42,12 @@ const MenuItemComponent = ({ color, icon, text, onClick }) => {
   );
 };
 
-const CategoryTableItemMenu = ({ menuAnchorEl, setMenuAnchorEl }) => {
+const CategoryTableItemMenu = ({
+  menuAnchorEl,
+  setMenuAnchorEl,
+  setOpenDeleteDialog,
+  setOpenEditDialog,
+}) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -76,6 +81,7 @@ const CategoryTableItemMenu = ({ menuAnchorEl, setMenuAnchorEl }) => {
         text={t("Edit")}
         onClick={() => {
           handleMenuClose();
+          setOpenEditDialog(true);
         }}
       />
 
@@ -84,6 +90,7 @@ const CategoryTableItemMenu = ({ menuAnchorEl, setMenuAnchorEl }) => {
         icon={<DeleteIcon />}
         text={t("Delete")}
         onClick={() => {
+          setOpenDeleteDialog(true);
           handleMenuClose();
         }}
       />

@@ -17,6 +17,7 @@ import CustomTypography from "../../../../../components/typography/customTypogra
 import CategorySection from "../../categorySection";
 import LanguageSelection from "../../../../header/components/languageSelection";
 import { useTranslation } from "react-i18next";
+import ProductSection from "../../productSection";
 
 const drawerWidth = 240;
 
@@ -173,7 +174,7 @@ export default function AdminDrawer() {
 
         {selectedMenu === "Orders" && <OrderSection />}
         {selectedMenu === "Categories" && <CategorySection />}
-        {selectedMenu === "Products" && <ProductsSection />}
+        {selectedMenu === "Products" && <ProductSection />}
       </Box>
     </Box>
   );
@@ -182,13 +183,5 @@ export default function AdminDrawer() {
 const OrderSection = () => (
   <Box>
     <Typography variant="body1">This is the Order section content.</Typography>
-  </Box>
-);
-
-const ProductsSection = () => (
-  <Box>
-    <Typography variant="body1">
-      This is the Products section content.
-    </Typography>
   </Box>
 );

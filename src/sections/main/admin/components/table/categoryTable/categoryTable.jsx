@@ -23,9 +23,6 @@ export default function CategoryTable({
         <TableHead
           sx={{
             backgroundColor: "#f5f5f5",
-            position: "sticky", // Make header sticky
-            top: 0, // Stick it at the top
-            zIndex: 1,
           }}
         >
           <TableRow>

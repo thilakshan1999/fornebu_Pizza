@@ -84,7 +84,7 @@ const CustomDeleteDialog = ({
           {loading ? (
             <CircularProgress
               size={20}
-              sx={{ margin: "4px 10px", color: "black" }}
+              sx={{ margin: "3px 10px", color: "white" }}
             />
           ) : (
             t("Yes")

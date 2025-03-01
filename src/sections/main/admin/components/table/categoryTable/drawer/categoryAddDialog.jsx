@@ -59,6 +59,7 @@ const CategoryAddDialog = ({ open, onClose, onCategoryAdded }) => {
         "& .MuiDialog-paper": {
           borderRadius: "12px",
           padding: "16px 0",
+          minWidth: "480px",
         },
       }}
     >
@@ -69,7 +70,6 @@ const CategoryAddDialog = ({ open, onClose, onCategoryAdded }) => {
           sx={{
             fontSize: "16px",
             fontWeight: "bold",
-            width: "480px",
           }}
         />
       </DialogTitle>

@@ -4,12 +4,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { useTranslation } from "react-i18next";
 import MenuItemComponent from "../MenuItemComponent";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
-const CategoryTableItemMenu = ({
+const ProductTableItemMenu = ({
   menuAnchorEl,
   setMenuAnchorEl,
   setOpenDeleteDialog,
   setOpenEditDialog,
+  setOpenViewDialog,
 }) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -40,6 +42,15 @@ const CategoryTableItemMenu = ({
       }}
     >
       <MenuItemComponent
+        icon={<VisibilityIcon />}
+        text={t("View")}
+        onClick={() => {
+          handleMenuClose();
+          setOpenViewDialog(true);
+        }}
+      />
+
+      <MenuItemComponent
         icon={<EditIcon />}
         text={t("Edit")}
         onClick={() => {
@@ -60,4 +71,4 @@ const CategoryTableItemMenu = ({
     </Menu>
   );
 };
-export default CategoryTableItemMenu;
+export default ProductTableItemMenu;

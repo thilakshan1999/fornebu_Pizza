@@ -5,6 +5,7 @@ import HeaderPhoneNumber from "./components/hederPhoneNumber";
 import HeaderAllergensBtn from "./components/headerAllergensBtn";
 import HeaderMyOrderBtn from "./components/headerMyOrderBtn";
 import LanguageSelection from "./components/languageSelection";
+import ProfileBtn from "../authentication/profileBtn";
 
 const Header = () => {
   return (
@@ -35,6 +36,7 @@ const Header = () => {
           <HeaderAllergensBtn />
           <HeaderMyOrderBtn />
           <LanguageSelection />
+          <ProfileBtn />
         </Box>
       </AppBar>
     </>

@@ -2,6 +2,7 @@ import { Box, useTheme } from "@mui/material";
 import tittleIcon from "../../../../../assets/images/home/Icon.png";
 import CustomTypography from "../../../../../components/typography/customTypography";
 import LanguageSelection from "../../../../header/components/languageSelection";
+import ProfileBtn from "../../../../authentication/profileBtn";
 
 const TittleMobileInfo = () => {
   const theme = useTheme();
@@ -18,11 +19,11 @@ const TittleMobileInfo = () => {
         src={tittleIcon}
         alt="Profile"
         style={{
-          width: "80px",
-          height: "80px",
+          width: "75px",
+          height: "75px",
           objectFit: "contain",
           borderRadius: "50%",
-          border: "1px solid",
+          border: "1px solid grey",
           borderColor: theme.palette.border.main,
         }}
       />
@@ -31,13 +32,14 @@ const TittleMobileInfo = () => {
         color={theme.palette.text.black}
         text={"Fornebu Pizza - Fornebu"}
         sx={{
-          fontSize: "18px",
+          fontSize: { xs: "16px", sm: "18px" },
           fontWeight: "bold",
         }}
       />
       <Box flexGrow={1} />
-      <Box>
+      <Box sx={{ display: "flex" }}>
         <LanguageSelection />
+        <ProfileBtn />
       </Box>
     </Box>
   );

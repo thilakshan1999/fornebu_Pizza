@@ -115,5 +115,30 @@
     "Product deleted successfully.":"Product deleted successfully.",
     "Product added successfully.":"Product added successfully.",
     "Product updated successfully.":"Product updated successfully.",
-    "Edit Product":"Edit Product"
+    "Edit Product":"Edit Product",
+
+    "Login to Your Account":"Login to Your Account",
+    "Please enter your email and password to access your account.":  "Please enter your email and password to access your account.",
+    "Email":"Email",
+    "Password":"Password",
+    "Login":"Login",
+    "Don't have an account?":"Don't have an account?",
+    "Email is required":"Email is required",
+    "Invalid email":"Invalid email",
+    "Password is required":"Password is required",
+    "Password must be at least 6 characters":"Password must be at least 6 characters",
+    "Create a New Account":"Create a New Account",
+    "Enter your details to create an account.":"Enter your details to create an account.",
+    "Username":"Username",
+    "Phone Number":"Phone Number",
+    "Confirm Password":"Confirm Password",
+    "Sign Up":"Sign Up",
+    "Already have an account?":"Already have an account?",
+    "Username is required":"Username is required",
+    "Username must be at least 3 characters":"Username must be at least 3 characters",
+    "Phone number is required":"Phone number is required",
+    "Invalid phone number format":"Invalid phone number format",
+    "Confirm Password is required":"Confirm Password is required",
+    "Passwords must match":"Passwords must match"
+
 }

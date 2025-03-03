@@ -6,8 +6,12 @@ import CategoryContent from "../sections/main/home/component/body/categoryConten
 import SearchContent from "../sections/main/home/component/body/searchContent";
 import MobileCartPage from "../pages/mobileCartPage";
 import AdminPage from "../pages/adminPage";
+import UnauthorizedPage from "../pages/unauthorizedPage";
+import { useAuth } from "../provider/AuthProvider";
+import CheckoutPage from "../pages/checkoutPage";
 
 const Router = () => {
+  const { checkIfUserIsAdmin } = useAuth();
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -20,8 +24,13 @@ const Router = () => {
           <Route path="/search/:searchKeyword" element={<SearchContent />} />
         </Route>
         <Route path="/cart" element={<MobileCartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
       </Route>
-      <Route path="/admin" element={<AdminPage />} />
+      <Route
+        path="/admin"
+        element={checkIfUserIsAdmin() ? <AdminPage /> : <UnauthorizedPage />}
+      />
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
     </Routes>
   );
 };

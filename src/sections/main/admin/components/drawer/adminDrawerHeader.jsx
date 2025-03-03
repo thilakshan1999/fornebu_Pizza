@@ -3,6 +3,9 @@ import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 import { useState } from "react";
 import AdminProfileMenu from "./adminProfileMenu";
+import { useAuth } from "../../../../../provider/AuthProvider";
+import LogoutDialog from "../../../../authentication/logoutDialog";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -32,8 +35,11 @@ const AppBar = styled(MuiAppBar, {
   ],
 }));
 
-const AdminDrawerHeader = ({ open, email = "redhood@example.com" }) => {
+const AdminDrawerHeader = ({ open }) => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [openLogout, setOpenLogout] = useState(false);
+  const { userDetails, logout } = useAuth();
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,6 +48,12 @@ const AdminDrawerHeader = ({ open, email = "redhood@example.com" }) => {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   return (
     <AppBar position="fixed" open={open}>
       <Toolbar>
@@ -70,15 +82,26 @@ const AdminDrawerHeader = ({ open, email = "redhood@example.com" }) => {
                 },
               }}
             >
-              {email[0].toUpperCase()}
+              {userDetails?.username?.charAt(0).toUpperCase() || "U"}
             </Avatar>
           </IconButton>
         </Box>
       </Toolbar>
       <AdminProfileMenu
-        email={email}
+        user={
+          userDetails?.username
+            ? userDetails.username.charAt(0).toUpperCase() +
+              userDetails.username.slice(1)
+            : "User"
+        }
         anchorEl={anchorEl}
         handleCloseMenu={handleCloseMenu}
+        setOpenLogout={setOpenLogout}
+      />
+      <LogoutDialog
+        openDialog={openLogout}
+        setOpenDialog={setOpenLogout}
+        onClick={handleLogout}
       />
     </AppBar>
   );

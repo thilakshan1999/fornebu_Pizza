@@ -5,11 +5,26 @@ import { formatPrice } from "../../../../../utils/formatPrize";
 import PrimaryBtn from "../../../../../components/button/primartButton";
 import { useContext } from "react";
 import { CartContext } from "../../../../../provider/cartProvider";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../../../provider/AuthProvider";
 
 const CartCheckout = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { getCartTotal } = useContext(CartContext);
+  const { user, setOpenLogIn } = useAuth();
+  const navigate = useNavigate();
+  const handleNavigateCheckout = () => {
+    navigate("/checkout");
+  };
+  const onClickCheckout = () => {
+    if (user) {
+      handleNavigateCheckout();
+    } else {
+      setOpenLogIn(true);
+    }
+  };
+
   return (
     <Box>
       <Box
@@ -50,6 +65,7 @@ const CartCheckout = () => {
         </Box>
         <PrimaryBtn
           text={t("Checkout")}
+          onClick={onClickCheckout}
           sx={{ fontWeight: "bold", width: "100%", marginTop: "15px" }}
         />
       </Box>

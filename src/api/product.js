@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import api from "./baseUrl";
 
 const ProductApi = {
@@ -41,8 +42,21 @@ const ProductApi = {
 
   addProduct: async (productData) => {
     try {
+      const user = getAuth().currentUser;
+
+      if (!user) {
+        console.error("No user is authenticated.");
+        return null;
+      }
+
+      // Get the ID token (access token) for the current user
+      const accessToken = await user.getIdToken();
+
       const response = await api.post("/product", productData, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
 
       console.log("Product added successfully:", response.data);
@@ -58,8 +72,21 @@ const ProductApi = {
 
   updateProduct: async (productId, productData) => {
     try {
+      const user = getAuth().currentUser;
+
+      if (!user) {
+        console.error("No user is authenticated.");
+        return null;
+      }
+
+      // Get the ID token (access token) for the current user
+      const accessToken = await user.getIdToken();
+
       const response = await api.put(`/product/${productId}`, productData, {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       console.log(
         `Product with ID ${productId} updated successfully:`,
@@ -77,7 +104,21 @@ const ProductApi = {
 
   deleteProduct: async (productId) => {
     try {
-      const response = await api.delete(`/product/${productId}`);
+      const user = getAuth().currentUser;
+
+      if (!user) {
+        console.error("No user is authenticated.");
+        return null;
+      }
+
+      // Get the ID token (access token) for the current user
+      const accessToken = await user.getIdToken();
+
+      const response = await api.delete(`/product/${productId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       console.log(`Product with ID ${productId} deleted successfully.`);
       console.log(response);
       return true;

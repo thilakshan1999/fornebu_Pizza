@@ -1,16 +1,33 @@
-import { useTheme, Modal, Fade, Box, Button, TextField } from "@mui/material";
+import {
+  useTheme,
+  Modal,
+  Fade,
+  Box,
+  Button,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import FormProviderComponent from "../../provider/formProviderComponent";
 import CustomTypography from "../../components/typography/customTypography";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { setDoc, doc } from "firebase/firestore";
+import { auth, db } from "../../firebaseConfig";
+import showSuccessToast from "../../components/toast/showSucessToast";
+import { useAuth } from "../../provider/AuthProvider";
 
-const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
+const SignInDialogBox = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const handleClose = () => setOpenSignIn(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { setOpenLogIn, openSignIn, setOpenSignIn, setUser, setUserDetails } =
+    useAuth();
 
   const onClickLogIn = () => {
     setOpenSignIn(false);
@@ -73,13 +90,58 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
     reset,
   } = signUpMethods;
 
-  const onSubmit = handleSignUpSubmit((data) => {
+  const onSubmit = handleSignUpSubmit(async (data) => {
     console.log(data);
-    handleClose();
+    setLoading(true);
+    try {
+      // 🔹 Create user with Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const user = userCredential.user;
+      console.log("User signed up:", user);
+
+      const userData = {
+        username: data.username,
+        email: data.email,
+        phoneNumber: data.phoneNumber,
+        isAdmin: false,
+        createdAt: new Date(),
+      };
+
+      await setDoc(doc(db, "users", user.uid), userData);
+
+      // 🔹 Save user and details globally in AuthContext
+      setUser(user);
+      setUserDetails(userData);
+
+      // ✅ Close the modal on success
+      showSuccessToast(t("User signed up successfully"));
+      handleClose();
+    } catch (error) {
+      // 🔹 Handle Firebase Authentication Errors
+      let errorMessage = t("Something went wrong!");
+      if (error.code === "auth/email-already-in-use") {
+        errorMessage = t("This email is already in use.");
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = t("Invalid email address.");
+      } else if (error.code === "auth/weak-password") {
+        errorMessage = t("Password should be at least 6 characters.");
+      }
+
+      console.error("Sign-Up Error:", error.message);
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   });
 
   useEffect(() => {
     if (openSignIn) {
+      setError("");
+      setLoading(false);
       reset(defaultSignUpValues);
     }
   }, [openSignIn, reset]);
@@ -145,8 +207,9 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
                   label={t("Username")}
                   fullWidth
                   {...register("username")}
-                  error={!!errors.username}
+                  error={!!errors.username || error}
                   helperText={errors.username?.message}
+                  disabled={loading}
                 />
 
                 <Box sx={{ height: "20px" }} />
@@ -156,8 +219,9 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
                   label={t("Email")}
                   fullWidth
                   {...register("email")}
-                  error={!!errors.email}
+                  error={!!errors.email || error}
                   helperText={errors.email?.message}
+                  disabled={loading}
                 />
 
                 <Box sx={{ height: "20px" }} />
@@ -167,8 +231,9 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
                   label={t("Phone Number")}
                   fullWidth
                   {...register("phoneNumber")}
-                  error={!!errors.phoneNumber}
+                  error={!!errors.phoneNumber || error}
                   helperText={errors.phoneNumber?.message}
+                  disabled={loading}
                 />
 
                 <Box sx={{ height: "20px" }} />
@@ -178,8 +243,9 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
                   fullWidth
                   type="password"
                   {...register("password")}
-                  error={!!errors.password}
+                  error={!!errors.password || error}
                   helperText={errors.password?.message}
+                  disabled={loading}
                 />
 
                 <Box sx={{ height: "20px" }} />
@@ -189,13 +255,27 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
                   fullWidth
                   type="password"
                   {...register("confirmPassword")}
-                  error={!!errors.confirmPassword}
+                  error={!!errors.confirmPassword || error}
                   helperText={errors.confirmPassword?.message}
+                  disabled={loading}
                 />
+
+                {error && (
+                  <CustomTypography
+                    text={error}
+                    align="left"
+                    sx={{
+                      color: theme.palette.text.red,
+                      fontSize: "12px",
+                      marginTop: "10px",
+                    }}
+                  />
+                )}
 
                 <Button
                   type="submit"
                   variant="contained"
+                  disabled={loading}
                   sx={{
                     width: "100%",
                     marginTop: "30px",
@@ -205,28 +285,30 @@ const SignInDialogBox = ({ openSignIn, setOpenSignIn, setOpenLogIn }) => {
                     fontWeight: "bold",
                     padding: "12px 18px",
                     textTransform: "uppercase",
-                    fontSize: {
-                      xs: "10px",
-                      sm: "14px",
-                    },
+                    fontSize: "14px",
                     fontFamily: theme.typography.fontFamily,
                     borderRadius: "8px",
                   }}
                 >
-                  {t("Sign Up")}
+                  {loading ? (
+                    <CircularProgress
+                      size={24}
+                      sx={{ margin: "4px 10px", color: "white" }}
+                    />
+                  ) : (
+                    t("Sign Up")
+                  )}
                 </Button>
 
                 <Button
                   onClick={onClickLogIn}
                   variant="text"
+                  disabled={loading}
                   sx={{
                     width: "100%",
                     color: theme.palette.text.black,
                     textTransform: "none",
-                    fontSize: {
-                      xs: "10px",
-                      sm: "14px",
-                    },
+                    fontSize: "14px",
                     fontFamily: theme.typography.fontFamily,
                     "&:hover": {
                       textDecoration: "underline",

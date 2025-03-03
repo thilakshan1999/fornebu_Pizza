@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth";
 import api from "./baseUrl";
 
 const CategoryApi = {
@@ -74,9 +75,27 @@ const CategoryApi = {
 
   addCategory: async (categoryName) => {
     try {
-      const response = await api.post("/categories", {
-        name: categoryName,
-      });
+      const user = getAuth().currentUser;
+
+      if (!user) {
+        console.error("No user is authenticated.");
+        return null;
+      }
+
+      // Get the ID token (access token) for the current user
+      const accessToken = await user.getIdToken();
+
+      const response = await api.post(
+        "/categories",
+        {
+          name: categoryName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       console.log(response);
       if (response.data) {
@@ -96,9 +115,27 @@ const CategoryApi = {
 
   updateCategory: async (categoryId, categoryName) => {
     try {
-      const response = await api.put(`/categories/${categoryId}`, {
-        name: categoryName,
-      });
+      const user = getAuth().currentUser;
+
+      if (!user) {
+        console.error("No user is authenticated.");
+        return null;
+      }
+
+      // Get the ID token (access token) for the current user
+      const accessToken = await user.getIdToken();
+
+      const response = await api.put(
+        `/categories/${categoryId}`,
+        {
+          name: categoryName,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
       console.log(response);
       if (response.data) {
@@ -118,7 +155,21 @@ const CategoryApi = {
 
   deleteCategory: async (categoryId) => {
     try {
-      const response = await api.delete(`/categories/${categoryId}`);
+      const user = getAuth().currentUser;
+
+      if (!user) {
+        console.error("No user is authenticated.");
+        return null;
+      }
+
+      // Get the ID token (access token) for the current user
+      const accessToken = await user.getIdToken();
+
+      const response = await api.delete(`/categories/${categoryId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       console.log("Category deleted successfully:", response);
       return true;

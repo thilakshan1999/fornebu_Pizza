@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Footer from "../sections/footer/footer";
 import Header from "../sections/header/header";
+import LogInDialogBox from "../sections/authentication/logInDialogBox";
+import SignInDialogBox from "../sections/authentication/signInDialogBox";
 
 const Layout = () => {
   return (
@@ -16,6 +18,8 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
+      <LogInDialogBox />
+      <SignInDialogBox />
     </div>
   );
 };

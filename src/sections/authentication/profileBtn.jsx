@@ -1,14 +1,29 @@
-import { IconButton } from "@mui/material";
+import { Avatar, IconButton } from "@mui/material";
 import { AccountCircleOutlined } from "@mui/icons-material";
+import { useAuth } from "../../provider/AuthProvider";
+import ProfileMenu from "../../components/menu/profileMenu";
 import { useState } from "react";
-import LogInDialogBox from "./logInDialogBox";
-import SignInDialogBox from "./signInDialogBox";
+import LogoutDialog from "./logoutDialog";
 
 const ProfileBtn = () => {
-  const [openLogIn, setOpenLogIn] = useState(false);
-  const [openSignIn, setOpenSignIn] = useState(false);
+  const { user, userDetails, setOpenLogIn, logout } = useAuth();
 
   const handleOpenDialog = () => setOpenLogIn(true);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [openLogout, setOpenLogout] = useState(false);
+  const handleLogout = () => {
+    setOpenLogout(false);
+    logout();
+  };
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
   return (
     <>
       <IconButton
@@ -17,24 +32,43 @@ const ProfileBtn = () => {
           padding: "0px",
           marginLeft: "5px",
         }}
-        onClick={handleOpenDialog}
+        onClick={user ? handleOpenMenu : handleOpenDialog}
       >
-        <AccountCircleOutlined
-          sx={{
-            fontSize: "2.25rem",
-          }}
-        />
+        {user ? (
+          <Avatar
+            sx={{
+              bgcolor: "grey.300",
+              color: "grey.600",
+              width: 32,
+              height: 32,
+              fontSize: "18px",
+            }}
+          >
+            {userDetails?.username?.charAt(0).toUpperCase() || "U"}
+          </Avatar>
+        ) : (
+          <AccountCircleOutlined
+            sx={{
+              fontSize: "2.25rem",
+            }}
+          />
+        )}
       </IconButton>
-
-      <LogInDialogBox
-        openLogIn={openLogIn}
-        setOpenLogIn={setOpenLogIn}
-        setOpenSignIn={setOpenSignIn}
+      <ProfileMenu
+        user={
+          userDetails?.username
+            ? userDetails.username.charAt(0).toUpperCase() +
+              userDetails.username.slice(1)
+            : "User"
+        }
+        anchorEl={anchorEl}
+        handleCloseMenu={handleCloseMenu}
+        setOpenLogout={setOpenLogout}
       />
-      <SignInDialogBox
-        openSignIn={openSignIn}
-        setOpenSignIn={setOpenSignIn}
-        setOpenLogIn={setOpenLogIn}
+      <LogoutDialog
+        openDialog={openLogout}
+        setOpenDialog={setOpenLogout}
+        onClick={handleLogout}
       />
     </>
   );

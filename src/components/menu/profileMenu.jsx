@@ -1,28 +1,21 @@
-import { Divider, Menu, MenuItem, useTheme } from "@mui/material";
-import CustomTypography from "../../../../../components/typography/customTypography";
+import { Box, Divider, Menu, MenuItem, useTheme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import CustomTypography from "../typography/customTypography";
 import { useTranslation } from "react-i18next";
+import BadgeOutlinedIcon from "@mui/icons-material/BadgeOutlined";
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import { useAuth } from "../../provider/AuthProvider";
 
-const AdminProfileMenu = ({
-  user,
-  anchorEl,
-  handleCloseMenu,
-  setOpenLogout,
-}) => {
+const ProfileMenu = ({ user, anchorEl, handleCloseMenu, setOpenLogout }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    handleCloseMenu();
-    setOpenLogout(true);
-  };
+  const { checkIfUserIsAdmin } = useAuth();
 
-  const handleNavigateHome = () => {
+  const handleNavigateAdmin = () => {
     handleCloseMenu();
-    navigate("/");
+    navigate("/admin");
   };
 
   return (
@@ -53,6 +46,8 @@ const AdminProfileMenu = ({
           "&.Mui-disabled": {
             opacity: 1, // Override the default opacity for disabled state
           },
+          display: "flex",
+          alignItems: "center",
         }}
       >
         <BadgeOutlinedIcon
@@ -63,7 +58,6 @@ const AdminProfileMenu = ({
             marginRight: "5px",
           }}
         />
-
         <CustomTypography
           text={user}
           align="centre"
@@ -77,35 +71,42 @@ const AdminProfileMenu = ({
       <Divider
         sx={{ borderColor: theme.palette.grey[300], borderStyle: "dotted" }}
       />
-      <MenuItem
-        onClick={handleNavigateHome}
-        sx={{ margin: "2px 6px", padding: "8px 10px", borderRadius: "6px" }}
-      >
-        <HomeOutlinedIcon
-          sx={{
-            fontSize: 20,
-            color: theme.palette.text.green,
-            marginBottom: "2px",
-            marginRight: "5px",
-          }}
-        />
+      {checkIfUserIsAdmin() && (
+        <Box>
+          <MenuItem
+            onClick={handleNavigateAdmin}
+            sx={{ margin: "2px 6px", padding: "8px 10px", borderRadius: "6px" }}
+          >
+            <AdminPanelSettingsOutlinedIcon
+              sx={{
+                fontSize: 20,
+                color: theme.palette.text.green,
+                marginBottom: "2px",
+                marginRight: "5px",
+              }}
+            />
 
-        <CustomTypography
-          text={t("Home")}
-          align="centre"
-          sx={{
-            fontWeight: "600",
-            color: theme.palette.text.green,
-            fontSize: "14px",
-          }}
-        />
-      </MenuItem>
+            <CustomTypography
+              text={t("Admin page")}
+              align="centre"
+              sx={{
+                fontWeight: "600",
+                color: theme.palette.text.green,
+                fontSize: "14px",
+              }}
+            />
+          </MenuItem>
 
-      <Divider
-        sx={{ borderColor: theme.palette.grey[300], borderStyle: "dotted" }}
-      />
+          <Divider
+            sx={{ borderColor: theme.palette.grey[300], borderStyle: "dotted" }}
+          />
+        </Box>
+      )}
       <MenuItem
-        onClick={handleLogout}
+        onClick={() => {
+          handleCloseMenu();
+          setOpenLogout(true);
+        }}
         sx={{ margin: "2px 6px", padding: "8px 10px", borderRadius: "6px" }}
       >
         <CustomTypography
@@ -125,4 +126,4 @@ const AdminProfileMenu = ({
     </Menu>
   );
 };
-export default AdminProfileMenu;
+export default ProfileMenu;

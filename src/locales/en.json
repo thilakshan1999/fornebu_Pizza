@@ -127,6 +127,7 @@
     "Invalid email":"Invalid email",
     "Password is required":"Password is required",
     "Password must be at least 6 characters":"Password must be at least 6 characters",
+
     "Create a New Account":"Create a New Account",
     "Enter your details to create an account.":"Enter your details to create an account.",
     "Username":"Username",
@@ -139,6 +140,23 @@
     "Phone number is required":"Phone number is required",
     "Invalid phone number format":"Invalid phone number format",
     "Confirm Password is required":"Confirm Password is required",
-    "Passwords must match":"Passwords must match"
+    "Passwords must match":"Passwords must match",
+    "User signed up successfully":"User signed up successfully",
+    
+    "Something went wrong!":"Something went wrong!",
+    "This email is already in use.":"This email is already in use.",
+    "Invalid email address.":"Invalid email address.",
+    "Password should be at least 6 characters.":"Password should be at least 6 characters.",
+    "Login successful!":"Login successful!",
+    "No user found with this email.":"No user found with this email.",
+    "Incorrect password.":"Incorrect password.",
+    "Too many failed login attempts. Try again later.":"Too many failed login attempts. Try again later.",
+    "Confirm Logout":"Confirm Logout",
+    "Are you sure you want to log out?":"Are you sure you want to log out?",
 
+    "Logout":"Logout",
+    "Admin page":"Admin page",
+    "Home":"Home"
+
+    
 }

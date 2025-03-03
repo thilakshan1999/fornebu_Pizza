@@ -1,16 +1,33 @@
-import { useTheme, Modal, Fade, Box, Button, TextField } from "@mui/material";
+import {
+  useTheme,
+  Modal,
+  Fade,
+  Box,
+  Button,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import CustomTypography from "../../components/typography/customTypography";
 import FormProviderComponent from "../../provider/formProviderComponent";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useAuth } from "../../provider/AuthProvider";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../firebaseConfig";
+import showSuccessToast from "../../components/toast/showSucessToast";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-const LogInDialogBox = ({ openLogIn, setOpenLogIn, setOpenSignIn }) => {
+const LogInDialogBox = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const handleClose = () => setOpenLogIn(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { openLogIn, setOpenLogIn, setOpenSignIn, setUser, setUserDetails } =
+    useAuth();
 
   const onClickSignIn = () => {
     setOpenLogIn(false);
@@ -51,13 +68,53 @@ const LogInDialogBox = ({ openLogIn, setOpenLogIn, setOpenSignIn }) => {
     reset,
   } = logInMethods;
 
-  const onSubmit = handleLoginSubmit((data) => {
+  const onSubmit = handleLoginSubmit(async (data) => {
     console.log(data);
-    handleClose();
+    setLoading(true);
+    try {
+      // 🔹 Sign in user with Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const user = userCredential.user;
+      console.log("User logged in:", user);
+
+      // 🔹 Fetch user details from Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userDocRef);
+
+      if (userSnap.exists()) {
+        setUserDetails(userSnap.data()); // Set user details in context
+      } else {
+        setUserDetails(null);
+      }
+
+      setUser(user);
+      showSuccessToast(t("Login successful!"));
+      handleClose();
+    } catch (error) {
+      let errorMessage = t("Something went wrong!");
+      if (error.code === "auth/user-not-found") {
+        errorMessage = t("No user found with this email.");
+      } else if (error.code === "auth/wrong-password") {
+        errorMessage = t("Incorrect password.");
+      } else if (error.code === "auth/too-many-requests") {
+        errorMessage = t("Too many failed login attempts. Try again later.");
+      }
+
+      console.error("Login Error:", error.message);
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   });
 
   useEffect(() => {
     if (openLogIn) {
+      setError("");
+      setLoading(false);
       reset(defaultLogInValues);
     }
   }, [openLogIn, reset]);
@@ -122,7 +179,8 @@ const LogInDialogBox = ({ openLogIn, setOpenLogIn, setOpenSignIn }) => {
                 fullWidth
                 {...register("email")}
                 error={!!errors.email}
-                helperText={errors.email?.message}
+                helperText={errors.email?.message || error}
+                disabled={loading}
               />
 
               <Box sx={{ height: "20px" }} />
@@ -133,13 +191,27 @@ const LogInDialogBox = ({ openLogIn, setOpenLogIn, setOpenSignIn }) => {
                 fullWidth
                 type="password"
                 {...register("password")}
-                error={!!errors.password}
+                error={!!errors.password || error}
                 helperText={errors.password?.message}
+                disabled={loading}
               />
+
+              {error && (
+                <CustomTypography
+                  text={error}
+                  align="left"
+                  sx={{
+                    color: theme.palette.text.red,
+                    fontSize: "12px",
+                    marginTop: "10px",
+                  }}
+                />
+              )}
 
               <Button
                 type="submit"
                 variant="contained"
+                disabled={loading}
                 sx={{
                   width: "100%",
                   marginTop: "30px",
@@ -149,28 +221,30 @@ const LogInDialogBox = ({ openLogIn, setOpenLogIn, setOpenSignIn }) => {
                   fontWeight: "bold",
                   padding: "12px 18px",
                   textTransform: "uppercase",
-                  fontSize: {
-                    xs: "10px",
-                    sm: "14px",
-                  },
+                  fontSize: "14px",
                   fontFamily: theme.typography.fontFamily,
                   borderRadius: "8px",
                 }}
               >
-                {t("Login")}
+                {loading ? (
+                  <CircularProgress
+                    size={24}
+                    sx={{ margin: "4px 10px", color: "white" }}
+                  />
+                ) : (
+                  t("Login")
+                )}
               </Button>
 
               <Button
                 onClick={onClickSignIn}
                 variant="text"
+                disabled={loading}
                 sx={{
                   width: "100%",
                   color: theme.palette.text.black,
                   textTransform: "none",
-                  fontSize: {
-                    xs: "10px",
-                    sm: "14px",
-                  },
+                  fontSize: "14px",
                   fontFamily: theme.typography.fontFamily,
                   "&:hover": {
                     textDecoration: "underline",

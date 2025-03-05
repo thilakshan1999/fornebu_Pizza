@@ -1,26 +1,21 @@
 import { Box } from "@mui/material";
-
-import CartTittle from "./cartTittle";
-import CartCheckout from "./cartCheckout";
-import NoCartItem from "./noCartItem";
+import CartTittle from "../home/component/cart/cartTittle";
 import { useContext } from "react";
-import CartItems from "./cartItems";
-import { CartContext } from "../../../../../provider/cartProvider";
+import { CartContext } from "../../../provider/cartProvider";
+import NoCartItem from "../home/component/cart/noCartItem";
+import CheckoutPlaceOrder from "./checkoutPlaceOrder";
+import CartItem from "../home/component/cart/cartItems";
 
-const Cart = ({ height }) => {
+const CheckoutCard = ({ onClickPlaceOrder, loading }) => {
   const { cartItems } = useContext(CartContext);
   return (
     <Box
       sx={{
-        width: "400px",
+        width: { xs: "100%", md: "400px" },
         position: "sticky",
         top: `40px`,
-        height: `100vh`,
+        height: { xs: "100%", md: `100vh` },
         overflowY: "auto",
-        display: {
-          xs: "none",
-          md: "block",
-        },
       }}
     >
       <Box
@@ -29,11 +24,12 @@ const Cart = ({ height }) => {
           flexDirection: "column",
           margin: "40px 10px",
           transition: "height 0.3s ease-in-out",
-          height: height,
+          height: "calc(100% - 120px)",
           p: 2,
           boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
           bgcolor: "white",
           borderRadius: "10px",
+          boxSizing: "border-box",
         }}
       >
         <CartTittle />
@@ -53,10 +49,13 @@ const Cart = ({ height }) => {
                 marginBlock: "10px",
               }}
             >
-              <CartItems cartItems={cartItems} isCheckout={false} />
+              <CartItem cartItems={cartItems} isCheckout={true} />
             </Box>
             <Box flexGrow={1} />
-            <CartCheckout />
+            <CheckoutPlaceOrder
+              onClickPlaceOrder={onClickPlaceOrder}
+              loading={loading}
+            />
           </Box>
         ) : (
           <NoCartItem />
@@ -65,5 +64,4 @@ const Cart = ({ height }) => {
     </Box>
   );
 };
-
-export default Cart;
+export default CheckoutCard;

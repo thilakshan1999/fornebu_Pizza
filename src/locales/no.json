@@ -156,6 +156,24 @@
 
     "Admin page":"Admin page",
     "Logout": "Logg ut",
-    "Home":"Hjem"
+    "Home":"Hjem",
+
+    "Quantity":"Antall",
+    "Service charge":"Servicegebyr",
+    "Sub Total":"Delsum",
+    "Place Order":"Legg inn bestilling",
+    "Billing": "Fakturering",
+    "Additional information": "Ytterligere informasjon",
+    "Payment Method": "Betalingsmetode",
+    "Cash on Pickup": "Kontant ved henting",
+    "Bank Transfer": "Bankoverføring",
+    "Order placed successfully.": "Bestilling fullført.",
+    "Failed to place order.": "Kunne ikke fullføre bestillingen.",
+    "Error in order submission. Please try again.": "Feil ved innsending av bestilling. Vennligst prøv igjen.",
+
+    "Thanks for ordering!": "Takk for bestillingen!",
+    "Your order has been placed successfully. You can track your order in the My Orders section.": "Bestillingen din er fullført. Du kan spore den i Min bestillinger-seksjonen.",
+    "View Orders": "Se bestillinger",
+    "Continue Shopping": "Fortsett å handle"
 
 }

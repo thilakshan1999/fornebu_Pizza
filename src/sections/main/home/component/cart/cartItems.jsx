@@ -8,7 +8,7 @@ import { CartContext } from "../../../../../provider/cartProvider";
 import CustomConfirmationDialog from "../../../../../components/dialog/customConfirmationDialog";
 import showClearToast from "../../../../../components/toast/showClearToast";
 
-const CartItems = ({ cartItems }) => {
+const CartItems = ({ cartItems, isCheckout }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const { updateCartItemQuantity, removeFromCart } = useContext(CartContext);
@@ -315,19 +315,31 @@ const CartItems = ({ cartItems }) => {
               marginBottom: "8px",
             }}
           >
-            <QuantityButton
-              quantity={item.quantity}
-              handleQuantityChange={(amount) => {
-                if (item.quantity + amount <= 0) {
-                  handleRemoveClick(item.id);
-                } else {
-                  updateCartItemQuantity(item.id, item.quantity + amount);
-                }
-              }}
-              size={"28px"}
-              fontSize={"18px"}
-              iconSize={"16px"}
-            />
+            {isCheckout ? (
+              <CustomTypography
+                color={theme.palette.text.black}
+                text={t("Quantity") + " : " + item.quantity}
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                }}
+              />
+            ) : (
+              <QuantityButton
+                quantity={item.quantity}
+                handleQuantityChange={(amount) => {
+                  if (item.quantity + amount <= 0) {
+                    handleRemoveClick(item.id);
+                  } else {
+                    updateCartItemQuantity(item.id, item.quantity + amount);
+                  }
+                }}
+                size={"28px"}
+                fontSize={"18px"}
+                iconSize={"16px"}
+              />
+            )}
+
             <CustomTypography
               color={theme.palette.text.green}
               text={formatPrice(item.productUnitPrize * item.quantity)}

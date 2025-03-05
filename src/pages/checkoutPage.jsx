@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import AdminSection from "../sections/main/admin/adminSection";
+import CheckoutSection from "../sections/main/checkout/checkoutSection";
 
 const CheckoutPage = () => {
   return (
@@ -8,7 +8,7 @@ const CheckoutPage = () => {
       <Helmet>
         <title>Checkout</title>
       </Helmet>
-      <AdminSection />
+      <CheckoutSection />
     </>
   );
 };

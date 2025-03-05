@@ -8,7 +8,8 @@ import MobileCartPage from "../pages/mobileCartPage";
 import AdminPage from "../pages/adminPage";
 import UnauthorizedPage from "../pages/unauthorizedPage";
 import { useAuth } from "../provider/AuthProvider";
-import CheckoutPage from "../pages/checkoutPage";
+import CheckoutSection from "../sections/main/checkout/checkoutSection";
+import OrderSuccessPage from "../pages/orderSucessPage";
 
 const Router = () => {
   const { checkIfUserIsAdmin } = useAuth();
@@ -24,7 +25,8 @@ const Router = () => {
           <Route path="/search/:searchKeyword" element={<SearchContent />} />
         </Route>
         <Route path="/cart" element={<MobileCartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/checkout" element={<CheckoutSection />} />
+        <Route path="/orderSuccess" element={<OrderSuccessPage />} />
       </Route>
       <Route
         path="/admin"

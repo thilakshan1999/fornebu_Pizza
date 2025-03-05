@@ -156,7 +156,23 @@
 
     "Logout":"Logout",
     "Admin page":"Admin page",
-    "Home":"Home"
+    "Home":"Home",
 
-    
+    "Quantity":"Quantity",
+    "Service charge":"Service charge",
+    "Sub Total":"Sub Total",
+    "Place Order":"Place Order",
+    "Billing":"Billing",
+    "Additional information":"Additional information",
+    "Payment Method":"Payment Method",
+    "Cash on Pickup":"Cash on Pickup",
+    "Bank Transfer":"Bank Transfer",
+    "Order placed successfully.":"Order placed successfully.",
+    "Failed to place order.":"Failed to place order.",
+    "Error in order submission. Please try again.":"Error in order submission. Please try again.",
+
+    "Thanks for ordering!":"Thanks for ordering!",
+    "Your order has been placed successfully. You can track your order in the My Orders section.":  "Your order has been placed successfully. You can track your order in the My Orders section.",
+    "View Orders":"View Orders",
+    "Continue Shopping":"Continue Shopping"
 }

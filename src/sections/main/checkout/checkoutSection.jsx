@@ -97,7 +97,7 @@ const CheckoutSection = () => {
       note: data.orderNote,
       paymentMethod: paymentMethod,
       isPaid: false,
-      orderStatus: "pending ",
+      orderStatus: "pending",
       subTotal: subTotal,
       serviceCharge: serviceCharge,
       total: total,

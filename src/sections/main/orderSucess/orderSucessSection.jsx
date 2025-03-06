@@ -16,7 +16,7 @@ const OrderSuccessSection = () => {
   };
 
   const moveToOrders = () => {
-    navigate("/orders");
+    navigate("/myOrders");
   };
 
   return (

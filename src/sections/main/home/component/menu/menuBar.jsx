@@ -14,6 +14,7 @@ const MenuBar = ({ isFixed, handleCategoryClick, ref }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const isHomeSelected = location.pathname === "/";
+  const isInMyOrders = location.pathname === "/myOrders";
   const { categoryName } = useParams();
   return (
     <Box
@@ -51,7 +52,13 @@ const MenuBar = ({ isFixed, handleCategoryClick, ref }) => {
         ) : (
           <CustomTypography
             color={theme.palette.text.white}
-            text={categoryName ? formatName(categoryName) : t("Search")}
+            text={
+              isInMyOrders
+                ? t("My_order")
+                : categoryName
+                ? formatName(categoryName)
+                : t("Search")
+            }
             sx={{
               fontSize: "16px",
               fontWeight: "bold",

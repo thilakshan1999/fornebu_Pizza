@@ -18,6 +18,7 @@ import CategorySection from "../../categorySection";
 import LanguageSelection from "../../../../header/components/languageSelection";
 import { useTranslation } from "react-i18next";
 import ProductSection from "../../productSection";
+import OrderSection from "../../orderSection";
 
 const drawerWidth = 240;
 
@@ -179,9 +180,3 @@ export default function AdminDrawer() {
     </Box>
   );
 }
-
-const OrderSection = () => (
-  <Box>
-    <Typography variant="body1">This is the Order section content.</Typography>
-  </Box>
-);

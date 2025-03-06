@@ -32,5 +32,22 @@ const OrderApi = {
       return null;
     }
   },
+
+  getOrdersByUserId: async (uid) => {
+    try {
+      const response = await api.get(`/orders/user/${uid}`);
+
+      console.log(response);
+      if (response.data) {
+        return response.data;
+      } else {
+        console.error("No orders found in response.");
+        return null;
+      }
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      return null;
+    }
+  },
 };
 export default OrderApi;

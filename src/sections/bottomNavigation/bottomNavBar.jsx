@@ -12,6 +12,7 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../../provider/cartProvider";
+import { useAuth } from "../../provider/AuthProvider";
 
 const BottomNavBar = ({ setOpen }) => {
   const { t } = useTranslation();
@@ -19,8 +20,16 @@ const BottomNavBar = ({ setOpen }) => {
   const navigate = useNavigate();
   const isHomeSelected = location.pathname === "/";
   const isCartSelected = location.pathname === "/cart";
-  const value = isHomeSelected ? 0 : isCartSelected ? 2 : -1;
+  const isMyOrderSelected = location.pathname === "/myOrders";
+  const value = isHomeSelected
+    ? 0
+    : isCartSelected
+    ? 2
+    : isMyOrderSelected
+    ? 3
+    : -1;
   const { cartItems } = useContext(CartContext);
+  const { user, setOpenLogIn } = useAuth();
 
   const handleChange = (event, newValue) => {
     if (newValue === 0) {
@@ -29,6 +38,12 @@ const BottomNavBar = ({ setOpen }) => {
       setOpen(true);
     } else if (newValue === 2) {
       navigate("/cart");
+    } else if (newValue === 3) {
+      if (user) {
+        navigate("/myOrders");
+      } else {
+        setOpenLogIn(true);
+      }
     }
   };
 

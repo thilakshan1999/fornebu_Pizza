@@ -108,8 +108,9 @@ const CategoryApi = {
       console.error("Error creating category:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return null;
     }
   },
 
@@ -148,8 +149,9 @@ const CategoryApi = {
       console.error("Error updating category:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return null;
     }
   },
 
@@ -177,8 +179,9 @@ const CategoryApi = {
       console.error("Error deleting category:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return false;
     }
   },
 };

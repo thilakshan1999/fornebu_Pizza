@@ -174,5 +174,28 @@
     "Thanks for ordering!":"Thanks for ordering!",
     "Your order has been placed successfully. You can track your order in the My Orders section.":  "Your order has been placed successfully. You can track your order in the My Orders section.",
     "View Orders":"View Orders",
-    "Continue Shopping":"Continue Shopping"
+    "Continue Shopping":"Continue Shopping",
+
+    "Pending":"Pending",
+    "Confirmed":"Confirmed",
+    "In Progress":"In Progress",
+    "Ready For Pickup":"Ready For Pickup",
+    "Completed":"Completed",
+    "Canceled":"Canceled",
+    "Order Id":"Order Id",
+    "Customer":"Customer",
+    "Order Date":"Order Date",
+    "Est. Time":"Est. Time",
+    "Items":"Items",
+    "Paid":"Paid",
+    "View":"View",
+    "Confirm":"Confirm",
+    "Ready":"Ready",
+
+    "Bill Info":"Bill Info",
+    "Service Charge":"Service Charge",
+    "Payment Status":"Payment Status",
+    "Order Estimated At":"Order Estimated At",
+    "Order Status":"Order Status",
+    "Order At":"Order At"
 }

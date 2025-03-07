@@ -35,8 +35,9 @@ const ProductApi = {
       console.error("Error fetching products:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return null;
     }
   },
 
@@ -65,8 +66,9 @@ const ProductApi = {
       console.error("Error adding product:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return null;
     }
   },
 
@@ -97,8 +99,9 @@ const ProductApi = {
       console.error("Error updating product:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return null;
     }
   },
 
@@ -126,8 +129,9 @@ const ProductApi = {
       console.error("Error deleting product:", err);
       if (!err.response) {
         throw new Error("Network error: Unable to connect to the server.");
+      } else {
+        throw new Error("Server error. Please try again later.");
       }
-      return null;
     }
   },
 };

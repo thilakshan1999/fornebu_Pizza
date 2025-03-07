@@ -26,7 +26,7 @@ const MyOrderSection = () => {
   }, []);
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchOrders = async () => {
       setLoading(true);
       try {
         const data = await OrderApi.getOrdersByUserId(user?.uid);
@@ -41,7 +41,7 @@ const MyOrderSection = () => {
         setLoading(false);
       }
     };
-    fetchCategories();
+    fetchOrders();
   }, []);
   return (
     <>

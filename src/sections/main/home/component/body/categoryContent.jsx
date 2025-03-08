@@ -28,7 +28,7 @@ const CategoryContent = () => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [categoryId]);
 
   return (
     <Box

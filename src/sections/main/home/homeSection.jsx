@@ -54,6 +54,8 @@ const HomeSection = () => {
 
   const handleCategoryClick = (index) => {
     if (categoryRefs.current[index]) {
+      console.log("index");
+      console.log(index);
       categoryRefs.current[index].scrollIntoView({ behavior: "smooth" });
     }
   };

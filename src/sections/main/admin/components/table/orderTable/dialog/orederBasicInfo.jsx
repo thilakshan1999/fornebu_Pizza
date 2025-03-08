@@ -139,7 +139,7 @@ const OrderBasicInfo = ({ order }) => {
             }}
           />
         </Box>
-
+        <Box sx={{ width: "10px" }} />
         {/* Prize */}
         <Box
           sx={{

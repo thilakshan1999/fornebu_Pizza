@@ -4,8 +4,10 @@ import { useAuth } from "../../provider/AuthProvider";
 import ProfileMenu from "../../components/menu/profileMenu";
 import { useState } from "react";
 import LogoutDialog from "./logoutDialog";
+import { useNavigate } from "react-router-dom";
 
 const ProfileBtn = () => {
+  const navigate = useNavigate();
   const { user, userDetails, setOpenLogIn, logout } = useAuth();
 
   const handleOpenDialog = () => setOpenLogIn(true);
@@ -15,6 +17,7 @@ const ProfileBtn = () => {
   const handleLogout = () => {
     setOpenLogout(false);
     logout();
+    navigate("/");
   };
 
   const handleOpenMenu = (event) => {

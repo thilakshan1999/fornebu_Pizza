@@ -19,10 +19,12 @@ import { setDoc, doc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import showSuccessToast from "../../components/toast/showSucessToast";
 import { useAuth } from "../../provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const SignInDialogBox = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const handleClose = () => setOpenSignIn(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -119,6 +121,7 @@ const SignInDialogBox = () => {
 
       // ✅ Close the modal on success
       showSuccessToast(t("User signed up successfully"));
+      navigate("/");
       handleClose();
     } catch (error) {
       // 🔹 Handle Firebase Authentication Errors

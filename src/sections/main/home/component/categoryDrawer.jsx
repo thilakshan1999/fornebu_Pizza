@@ -36,9 +36,11 @@ const CategoryDrawer = ({
     setOpen(state);
   };
 
-  const handleCategoryClick = (name, id) => {
+  const handleCategoryClick = (name, id, index) => {
     if (isHomeSelected) {
-      handleCategoryClickHome(id);
+      console.log("click id");
+      console.log(index);
+      handleCategoryClickHome(index);
     } else {
       navigate(
         `/${name
@@ -66,10 +68,12 @@ const CategoryDrawer = ({
           </ListItem>
           <Divider />
 
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <ListItemButton
               key={category.id}
-              onClick={() => handleCategoryClick(category.name, category.id)}
+              onClick={() =>
+                handleCategoryClick(category.name, category.id, index)
+              }
             >
               <ListItemText primary={category.name} />
             </ListItemButton>

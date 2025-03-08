@@ -93,7 +93,7 @@ const OrderCard = ({ order }) => {
             >
               <CustomTypography
                 color={theme.palette.text.grey}
-                text={t("Order On")}
+                text={t("Order At")}
                 sx={{
                   fontSize: "12px",
                 }}
@@ -110,33 +110,34 @@ const OrderCard = ({ order }) => {
             </Box>
 
             {/* Estimate time */}
-            {(order.orderStatus !== "completed" ||
-              order.orderStatus !== "cancelled") && (
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                }}
-              >
-                <CustomTypography
-                  color={theme.palette.text.grey}
-                  text={t("Pickup At")}
+            {order.orderStatus !== "completed" &&
+              order.orderStatus !== "readyForPickUp" &&
+              order.orderStatus !== "cancelled" && (
+                <Box
                   sx={{
-                    fontSize: "12px",
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
                   }}
-                />
-                <CustomTypography
-                  color={theme.palette.text.black}
-                  text={formattedTime}
-                  sx={{
-                    fontSize: "13px",
-                    fontWeight: "bold",
-                    marginLeft: "5px",
-                  }}
-                />
-              </Box>
-            )}
+                >
+                  <CustomTypography
+                    color={theme.palette.text.grey}
+                    text={t("Pickup At")}
+                    sx={{
+                      fontSize: "12px",
+                    }}
+                  />
+                  <CustomTypography
+                    color={theme.palette.text.black}
+                    text={formattedTime}
+                    sx={{
+                      fontSize: "13px",
+                      fontWeight: "bold",
+                      marginLeft: "5px",
+                    }}
+                  />
+                </Box>
+              )}
 
             {/* Product Count */}
             <Box

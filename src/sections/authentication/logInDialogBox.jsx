@@ -19,10 +19,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebaseConfig";
 import showSuccessToast from "../../components/toast/showSucessToast";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const LogInDialogBox = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const handleClose = () => setOpenLogIn(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -93,6 +95,7 @@ const LogInDialogBox = () => {
 
       setUser(user);
       showSuccessToast(t("Login successful!"));
+      navigate("/");
       handleClose();
     } catch (error) {
       let errorMessage = t("Something went wrong!");
